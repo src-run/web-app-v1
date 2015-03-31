@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4fa506448263cd69b8e7ab9d05d77c72",
+    "hash": "3accbd32fa4c8253709890f40200c1c2",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -469,6 +469,55 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "eloquent/lcs",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eloquent/php-lcs.git",
+                "reference": "9381d6e57b7fadef4e9a90ce1b1e2b04e05a2d06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eloquent/php-lcs/zipball/9381d6e57b7fadef4e9a90ce1b1e2b04e05a2d06",
+                "reference": "9381d6e57b7fadef4e9a90ce1b1e2b04e05a2d06",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "icecave/archer": "~1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eloquent\\Lcs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erin Millard",
+                    "email": "ezzatron@gmail.com",
+                    "homepage": "http://ezzatron.com/"
+                }
+            ],
+            "description": "An implementation of the 'longest common subsequence' algorithm for PHP.",
+            "homepage": "https://github.com/eloquent/php-lcs",
+            "keywords": [
+                "Algorithm",
+                "common",
+                "diff",
+                "longest",
+                "sequence",
+                "subsequence"
+            ],
+            "time": "2014-02-17 06:24:14"
         },
         {
             "name": "monolog/monolog",

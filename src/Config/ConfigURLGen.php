@@ -72,6 +72,25 @@ class ConfigURLGen
 
         return str_replace('%username%', $username, $gitHubUrl);
     }
+
+    /**
+     * Return GitHub profile path from given username
+     *
+     * @param string $username
+     *
+     * @return mixed
+     */
+    public function getGitHubScribeProjectUrl($project)
+    {
+        $gitHubUrl = $this->getPreferredSchema().':'.
+            $this->cfg->getValueForKeyPath('redirects', 'services', 'github');
+
+        if (true !==$this->cfg->validateResult($gitHubUrl)) {
+            throw new \LogicException('Could not find GitHub URL base path.');
+        }
+
+        return str_replace('%bundle-name%', $project, $gitHubUrl);
+    }
 }
 
 /* EOF */

@@ -60,6 +60,22 @@ $app->get('/{user}', function($user) use ($app, $cfg, $gen) {
 })->assert('user', '[\w]{3}');
 
 /*
+ * ROUTE: GitHub Public Repo
+ * Attempts to tale the given string and find the closest matching GitHub public repo to said strng
+ */
+$app->get('/{repo}', function($repo) use ($app, $cfg, $gen) {
+
+    $project = $cfg->getClosestProjectMatch($repo);
+
+    if (null === $project || false === ($url = $gen->getGitHubScribeProjectUrl($project))) {
+        return RequestHandler::returnSubRequest('/', $app);
+    }
+
+    return RequestHandler::returnRedirect($url, $app);
+
+})->assert('user', '[\w\d\._-]');
+
+/*
  * ROUTE: Catch-All
  * Performs sub-request to default route.
  */
