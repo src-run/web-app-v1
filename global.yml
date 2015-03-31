@@ -1,0 +1,69 @@
+---
+global:
+    redirects:
+        bitbucket:   "https://bitbucket.org/scribeinc/%bundle-name%"
+        github:      "https://github.com/scribenet/%bundle-name%"
+        stash:       "https://scribe.software/code/projects/%stash-project%/repos/%stash-repo%"
+        packagist:   "https://packagist.org/packages/%packagist-name%"
+        rtd:         "https://%bundle-name%.docs.scribe.tools"
+        sami:        "https://%bundle-name%.open.scribe.tools/api/"
+        travis:      "https://travis-ci.org/scribenet/%bundle-name%"
+        coveralls:   "https://coveralls.io/r/scribenet/%bundle-name%"
+        scrutinizer: "https://scrutinizer-ci.com/g/scribenet/%bundle-name%"
+        gemnasium:   "https://gemnasium.com/scribenet/%bundle-name%"
+        sensiolabs:  "https://insight.sensiolabs.com/projects/%sensiolabs-id%"
+        shields:
+            style:   "flat-square"
+            branch:  "master"
+            baseurl: "https://img.shields.io/"
+            services:
+                custom:        "badge/%title%-%state%-%color%.svg"
+                packagist:     "packagist/v/%packagist-name%.svg"
+                packagist_dev: "packagist/vpre/%packagist-name%.svg"
+                rtd:           "https://readthedocs.org/projects/%bundle-name%/badge/?version=latest&"
+                sami:          "badge/docs-api%20reference-c75ec1.svg"
+                travis:        "/travis/scribenet/%bundle-name%/%branch%.svg"
+                coveralls:     "coveralls/scribenet/%bundle-name%/%branch%.svg"
+                scrutinizer:   "scrutinizer/g/scribenet/%bundle-name%/%branch%.svg"
+                gemnasium:     "gemnasium/scribenet/%bundle-name%.svg"
+                sensiolabs:    "sensiolabs/i/%sensiolabs-id%.svg"
+                license:       "badge/license-%license%-008ac6.svg"
+projects:
+    symfony_mantle_bundle:
+        general:
+            license: "MIT"
+            branch:  "master"
+        releases:
+            mainline: "%packagist%"
+            stable:   "no stable release"
+        services:
+            bitbucket:   true
+            github:      true
+            stash:       "PHPS/mantle-bundle"
+            packagist:   "scribe/mantle-bundle"
+            rtd:         true
+            sami:        true
+            travis:      true
+            coveralls:   true
+            scrutinizer: true
+            gemnasium:   true
+            sensiolabs:  false
+    symfony_cache_bundle:
+        general:
+            license: "MIT"
+            branch:  "master"
+        releases:
+            mainline: "%packagist%"
+            stable:   "%packagist%"
+        services:
+            bitbucket:   true
+            github:      true
+            stash:       "PHPS/cache-bundle"
+            packagist:   "scribe/cache-bundle"
+            rtd:         true
+            sami:        true
+            travis:      true
+            coveralls:   true
+            scrutinizer: true
+            gemnasium:   true
+            sensiolabs:  "a74fcd5f-6e34-4bc9-a790-7b29efa44741"
