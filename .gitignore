@@ -1,2 +1,7 @@
 /vendor/
 /.idea/
+/.build/
+/resources/cache/*
+/resources/log/*
+/resources/config/parameters.php
+/bin/

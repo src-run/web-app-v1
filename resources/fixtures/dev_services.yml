@@ -3,14 +3,24 @@ general:
   preferred_scheme:  "https"
 redirects:
   users:
-    profile_types:
-      github:        "//github.com/%username%"
-      gitlab:        "//git.scr.be/u/%useralias%"
-    mapping:
-      rmf:           "robfrawley"
-      dfc:           "dcorrigan"
-      aht:           "andrewhthomas"
-      cmc:           "cchimi"
+    services:
+      github:
+        url:         "//github.com/%user%"
+        usermap:
+          rmf:       "robfrawley"
+          dfc:       "dcorrigan"
+          aht:       "andrewhthomas"
+          cmc:       "cchimi"
+      git:
+        alias:       "github"
+      gitlab:
+        url:         "//git.scr.be/u/%user%"
+      lab:
+        alias:       "gitlab"
+      wakatime:
+        url:         "//wakatime.com/@%user%"
+      time:
+        alias:       "wakatime"
   services:
     bitbucket:       "//bitbucket.org/scribeinc/%bundle-name%"
     github:          "//github.com/scribenet/%bundle-name%"

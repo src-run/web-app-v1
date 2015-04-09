@@ -21,21 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ErrorHandler
 {
     /**
-     * Setup the enviornment variable on the app
-     *
-     * @param Application $app
-     * @param bool        $enabled
-     *
-     * @return $this
-     */
-    public function setDebug(Application $app, $enabled = false)
-    {
-        $app['debug'] = (bool) $enabled;
-
-        return $this;
-    }
-
-    /**
      * Attach error handlers to application
      *
      * @param Application $app
