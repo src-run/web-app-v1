@@ -162,6 +162,10 @@ class ConfigHandlerGitHub extends ConfigHandler
             $this->userLogin = $userData['userLogin'];
             $this->userAlias = $userData['userAlias'];
 
+            array_walk($this->userLogin, function(&$v) {
+                $v = strtolower($v);
+            });
+
             return $this;
         }
 
@@ -217,6 +221,10 @@ class ConfigHandlerGitHub extends ConfigHandler
 
             $this->cacher->set($cacheKey, $userData, $this->cacherTtl);
         }
+
+        array_walk($this->userLogin, function(&$v) {
+            $v = strtolower($v);
+        });
 
         return $this;
     }

@@ -86,6 +86,8 @@ class UrlGenerator
      */
     public function getUserServiceUrl($user, $service = 'github')
     {
+        $user = strtolower($user);
+
         if (false === ($userKey = array_search($user, $this->app['s.cgh']->userAlias)) &&
             false === ($userKey = array_search($user, $this->app['s.cgh']->userLogin))) {
             return null;
