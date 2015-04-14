@@ -28,7 +28,9 @@ redirects:
     packagist:       "//packagist.org/packages/%packagist-name%"
     rtd:             "//%bundle-name%.docs.scribe.tools"
     sami:            "//%bundle-name%.open.scribe.tools/api/"
-    travis:          "//travis-ci.org/scribenet/%bundle-name%"
+    travis:
+      public:        "//travis-ci.org/scribenet/%bundle-name%"
+      private:       "//magnum.travis-ci.com/scribenet/%bundle-name%"
     coveralls:       "//coveralls.io/r/scribenet/%bundle-name%"
     scrutinizer:     "//scrutinizer-ci.com/g/scribenet/%bundle-name%"
     gemnasium:       "//gemnasium.com/scribenet/%bundle-name%"

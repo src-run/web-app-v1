@@ -116,8 +116,16 @@ class UrlGenerator
             return null;
         }
 
-        if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service))) {
-            return null;
+        if ($service === 'travis') {
+            $typeKey = ($this->app['s.cgh']->repositories[$key]['private'] ? 'private' : 'public');
+
+            if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service, $typeKey))) {
+                return null;
+            }
+        } else {
+            if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service))) {
+                return null;
+            }
         }
 
         return $this->renderedFinalizedUrl(
