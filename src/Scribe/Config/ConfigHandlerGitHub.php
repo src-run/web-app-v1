@@ -177,8 +177,8 @@ class ConfigHandlerGitHub extends ConfigHandler
                     array_key_exists('license', $repository) && array_key_exists('key', $repository['license']) ?
                         $repository['license']['key'] : null
                 ;
-                $this->repositoryLicenseHtml[] = $this->attemptToGetLicense($repository);
-                $this->repositoryReadmeHtml[] = $this->attemptToGetReadme($repository);
+                //$this->repositoryLicenseHtml[] = $this->attemptToGetLicense($repository);
+                //$this->repositoryReadmeHtml[] = $this->attemptToGetReadme($repository);
             }
         }
 

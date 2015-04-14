@@ -67,6 +67,25 @@ $app->get('/{user}',
     ->assert('user', '[\w]{3}')
 ;
 
+$app->get('/{repo}/{service}',
+
+    function($repo, $service) use ($app) {
+
+        $collection = array_values((array) $app['s.cgh']->repositoryNames);
+        $project    = $app['s.csv']->getClosestCollectionMatch($repo, $collection);
+        $key        = array_search($project, $collection);
+
+        if (null === ($externalRedirect = $app['s.gen']->getRepoServiceUrl($key, $service))) {
+            return RequestHandler::returnRedirect('/', $app);
+        }
+
+        return RequestHandler::returnRedirect($externalRedirect, $app);
+
+    })
+    ->assert('repo', '.+')
+    ->assert('service', '[\w]{0,}')
+;
+
 $app->get('/{repo}',
 
     function($repo) use ($app) {

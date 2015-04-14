@@ -105,6 +105,28 @@ class UrlGenerator
     }
 
     /**
+     * @param int    $key
+     * @param string $service
+     *
+     * @return null|string
+     */
+    public function getRepoServiceUrl($key, $service)
+    {
+        if ($service === 'stash' || $service === 'sensiolabs') {
+            return null;
+        }
+
+        if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service))) {
+            return null;
+        }
+
+        return $this->renderedFinalizedUrl(
+            $serviceUrl,
+            ['%bundle-name%', $this->app['s.cgh']->repositoryNames[$key]]
+        );
+    }
+
+    /**
      * Render a final URL, concatinating our default schema and performing any string replacements
      * per the passed replacement instruction arrays.
      *
