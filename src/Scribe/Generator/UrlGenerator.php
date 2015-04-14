@@ -32,7 +32,7 @@ class UrlGenerator
      */
     public function getPreferredSchema()
     {
-        return (string) ($this->getCsv()->getValueForKeyPath('general', 'preferred_scheme') ?: "https");
+        return (string) ($this->getCsv()->getValueForKeyPath('general', 'preferred_scheme') ?: "https") . ':';
     }
 
     /**
