@@ -84,10 +84,19 @@ class UrlGenerator
      *
      * @return string|null
      */
-    public function getUserServiceUrl($user, $service)
+    public function getUserServiceUrl($user, $service = 'github')
     {
+        if (false === ($userKey = array_search($user, $this->app['s.cgh']->userAlias)) &&
+            false === ($userKey = array_search($user, $this->app['s.cgh']->userLogin))) {
+            return null;
+        }
+
         if (null !== ($serviceAlias = $this->getCsv()->getValueForKeyPath('redirects', 'users', 'services', $service, 'alias'))) {
             $service = $serviceAlias;
+        }
+
+        if ($service === 'github' && array_key_exists('html_url', $this->app['s.cgh']->users[$userKey])) {
+            return $this->app['s.cgh']->users[$userKey]['html_url'];
         }
 
         if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'users', 'services', $service, 'url'))) {

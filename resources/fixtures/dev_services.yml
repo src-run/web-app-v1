@@ -1,16 +1,14 @@
 ---
 general:
   preferred_scheme:  "https"
+user_aliases:
+  robfrawley:    rmf
+  dcorrigan:     dfc
+  cchimi:        cmc
+  andrewhthomas: aht
 redirects:
   users:
     services:
-      github:
-        url:         "//github.com/%user%"
-        usermap:
-          rmf:       "robfrawley"
-          dfc:       "dcorrigan"
-          aht:       "andrewhthomas"
-          cmc:       "cchimi"
       git:
         alias:       "github"
       gitlab:

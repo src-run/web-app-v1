@@ -57,6 +57,21 @@ class ConfigHandlerGitHub extends ConfigHandler
     public $repositoryReadmeHtml;
 
     /**
+     * @var array
+     */
+    public $users;
+
+    /**
+     * @var array
+     */
+    public $userLogin;
+
+    /**
+     * @var array
+     */
+    public $userAlias;
+
+    /**
      * @var \Memcached
      */
     protected $cacher;
@@ -80,6 +95,9 @@ class ConfigHandlerGitHub extends ConfigHandler
             ->instantiateNewCacher()
             ->instantiateNewClient()
             ->authenticateClient()
+            ->getUsers(
+                $this->getAppParam('s.github.api.organization')
+            )
             ->getRepositories(
                 $this->getAppParam('s.github.api.organization')
             )
@@ -128,6 +146,93 @@ class ConfigHandlerGitHub extends ConfigHandler
         );
 
         return $this;
+    }
+
+    /**
+     * @param array $owners
+     *
+     * @return $this
+     */
+    protected function getUsers(array $owners = [])
+    {
+        $cacheKey = (string) __CLASS__.'_user-data';
+
+        if ($this->cacherEnabled && false !== ($userData = $this->cacher->get($cacheKey))) {
+            $this->users = $userData['users'];
+            $this->userLogin = $userData['userLogin'];
+            $this->userAlias = $userData['userAlias'];
+
+            return $this;
+        }
+
+        foreach ($owners as $o) {
+            $more = true;
+            $allResults = [];
+            $apiBase = 'orgs/'.$o.'/members';
+            $params = ['filter' => 'all'];
+            $paramsNext = false;
+
+            while ($more === true) {
+                $response = $this->client->getHttpClient()->get($apiBase, ($paramsNext ? $paramsNext : $params));
+                $results  = ResponseMediator::getContent($response);
+                $pages    = ResponseMediator::getPagination($response);
+
+                $allResults = array_merge(array_values($allResults), array_values($results));
+
+                if (!array_key_exists('next', $pages)) {
+                    $more = false;
+                } else {
+                    $next = $pages['next'];
+                    $nextPageMatch = [];
+                    preg_match('#page=([0-9]*)#', $next, $nextPageMatch);
+                    if (count($nextPageMatch) !== 2) {
+                        break;
+                    }
+                    $paramsNext = array_merge(
+                        $params,
+                        ['page' => $nextPageMatch[1]]
+                    );
+                }
+            }
+
+            $results = $allResults;
+
+            if (!is_array($results) || !(count($results) > 0)) {
+                continue;
+            }
+
+            foreach ($results as $i => $user) {
+                $this->users[$i] = $user;
+                $this->userLogin[$i] = $user['login'];
+                if (null !== ($alias = $this->getUserAlias($user['login']))) {
+                    $this->userAlias[$i] = $alias;
+                }
+            }
+        }
+
+        if ($this->cacherEnabled) {
+            $userData['users'] = $this->users;
+            $userData['userLogin'] = $this->userLogin;
+            $userData['userAlias'] = $this->userAlias;
+
+            $this->cacher->set($cacheKey, $userData, $this->cacherTtl);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $login
+     *
+     * @return null|string
+     */
+    protected function getUserAlias($login)
+    {
+        if (null !== ($alias = $this->app['s.csv']->getValueForKeyPath('user_aliases', $login))) {
+            return $alias;
+        }
+
+        return null;
     }
 
     /**
@@ -192,6 +297,8 @@ class ConfigHandlerGitHub extends ConfigHandler
 
             $this->cacher->set($cacheKey, $repoData, $this->cacherTtl);
         }
+
+        return $this;
     }
 
     /**

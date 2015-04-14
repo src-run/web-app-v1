@@ -34,40 +34,7 @@ $app->get('/',
     })
 ;
 
-$app->get('/{user}/{service}',
-
-    function($user, $service) use ($app) {
-
-        if (true === empty($service)) {
-            return RequestHandler::returnRedirect('/', $app);
-        }
-
-        if (null === ($externalRedirect = $app['s.gen']->getUserServiceUrl($user, $service))) {
-            return RequestHandler::returnRedirect('/', $app);
-        }
-
-        return RequestHandler::returnRedirect($externalRedirect, $app);
-
-    })
-    ->assert('user', '[\w]{3}')
-    ->assert('service', '[\w]{0,}')
-;
-
-$app->get('/{user}',
-
-    function($user) use ($app) {
-
-        if (null === ($externalRedirect = $app['s.gen']->getUserServiceUrl($user, 'git'))) {
-            throw new \Exception('Something bad happened. Your guess is as good as mine.');
-        }
-
-        return RequestHandler::returnRedirect($externalRedirect, $app);
-
-    })
-    ->assert('user', '[\w]{3}')
-;
-
-$app->get('/{repo}/{service}',
+$app->get('/r/{repo}/{service}',
 
     function($repo, $service) use ($app) {
 
@@ -82,11 +49,11 @@ $app->get('/{repo}/{service}',
         return RequestHandler::returnRedirect($externalRedirect, $app);
 
     })
-    ->assert('repo', '.+')
+    ->assert('repo', '[^/]+')
     ->assert('service', '[\w]{0,}')
 ;
 
-$app->get('/{repo}',
+$app->get('/r/{repo}',
 
     function($repo) use ($app) {
 
@@ -94,10 +61,80 @@ $app->get('/{repo}',
         $project    = $app['s.csv']->getClosestCollectionMatch($repo, $collection);
         $key        = array_search($project, $collection);
 
+        if (!$key) {
+            return RequestHandler::returnRedirect('/', $app);
+        }
+
         return RequestHandler::returnRedirect($app['s.cgh']->repositoryUrls[$key], $app);
 
     })
     ->assert('repo', '.+')
+;
+
+$app->get('/u/{user}/{service}',
+
+    function($user, $service) use ($app) {
+
+        if (true === empty($service)) {
+            return RequestHandler::returnRedirect('/u/'.$user, $app);
+        }
+
+        if (null === ($externalRedirect = $app['s.gen']->getUserServiceUrl($user, $service))) {
+            return RequestHandler::returnRedirect('/r/'.$user.'/'.$service, $app);
+        }
+
+        return RequestHandler::returnRedirect($externalRedirect, $app);
+
+    })
+    ->assert('user', '[\w]{3,}')
+    ->assert('service', '[\w]{0,}')
+;
+
+$app->get('/u/{user}',
+
+    function($user) use ($app) {
+
+        if (null === ($externalRedirect = $app['s.gen']->getUserServiceUrl($user, 'git'))) {
+            return RequestHandler::returnRedirect('/r/'.$user, $app);
+        }
+
+        return RequestHandler::returnRedirect($externalRedirect, $app);
+
+    })
+    ->assert('user', '[\w]{3,}')
+;
+
+$app->get('/{user}/{service}',
+
+    function($user, $service) use ($app) {
+
+        if (true === empty($service)) {
+            return RequestHandler::returnRedirect('/u/', $app);
+        }
+
+        if (null === ($externalRedirect = $app['s.gen']->getUserServiceUrl($user, $service))) {
+            return RequestHandler::returnRedirect('/r/'.$user.'/'.$service, $app);
+        }
+
+        return RequestHandler::returnRedirect($externalRedirect, $app);
+
+    })
+    ->assert('user', '[^/]+')
+    ->assert('service', '[\w]{0,}')
+;
+
+$app->get('/{user}',
+
+    function($user) use ($app) {
+
+        if (null === ($externalRedirect = $app['s.gen']->getUserServiceUrl($user))) {
+            return RequestHandler::returnRedirect('/r/'.$user, $app);
+        }
+
+        return RequestHandler::returnRedirect($externalRedirect, $app);
+
+    })
+    ->assert('user', '.+')
 ;
 
 return $app;
