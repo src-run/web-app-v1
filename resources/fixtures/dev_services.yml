@@ -25,7 +25,9 @@ redirects:
     stash:           "//scribe.software/code/projects/%stash-project%/repos/%stash-repo%"
     packagist:       "//packagist.org/packages/%packagist-name%"
     rtd:             "//%bundle-name%.docs.scribe.tools"
+    docs:            "//%bundle-name%.docs.scribe.tools"
     sami:            "//%bundle-name%.open.scribe.tools/api/"
+    api:             "//%bundle-name%.open.scribe.tools/api/"
     travis:
       public:        "//travis-ci.org/scribenet/%bundle-name%"
       private:       "//magnum.travis-ci.com/scribenet/%bundle-name%"
