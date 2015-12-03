@@ -1,6 +1,14 @@
 ---
 general:
   preferred_scheme:  "https"
+shortlinks:
+  aliases :
+    "open" : "open-source"
+  go :
+    "open-source": https://github.com/scr-be
+  file :
+    "get-build-knowledge.sh": https://raw.githubusercontent.com/scr-be/project-build-knowledge/aboriginal-pasta/build/env/get_build-knowledge.sh
+    "fetch-all-repos-gen-api-docs.bash": https://raw.githubusercontent.com/scr-be/build-knowledge-shared/aboriginal-pasta/build/doc/fetch-all-repos-and-gen.sh
 user_aliases:
   robfrawley:    rmf
   dcorrigan:     dfc
@@ -20,21 +28,31 @@ redirects:
       time:
         alias:       "wakatime"
   services:
-    bitbucket:       "//bitbucket.org/scribeinc/%bundle-name%"
-    github:          "//github.com/scribenet/%bundle-name%"
-    stash:           "//scribe.software/code/projects/%stash-project%/repos/%stash-repo%"
-    packagist:       "//packagist.org/packages/%packagist-name%"
-    rtd:             "//%bundle-name%.docs.scribe.tools"
-    docs:            "//%bundle-name%.docs.scribe.tools"
-    sami:            "//%bundle-name%.open.scribe.tools/api/"
-    api:             "//%bundle-name%.open.scribe.tools/api/"
+    bitbucket:            "//bitbucket.org/scribeinc/%bundle-name%"
+    github:               "//github.com/scr-be/%bundle-name%"
+    readme:               "//github.com/scr-be/%bundle-name%/blob/master/README.md"
+    "readme_shield":      "//img.shields.io/badge/docs-README-9933FF.svg?style=flat-square"
+    license:              "//github.com/scr-be/%bundle-name%/blob/master/LICENSE.md"
+    "license_shield":     "//img.shields.io/badge/license-MIT-0066FF.svg?style=flat-square"
+    stash:                "//scribe.software/code/projects/%stash-project%/repos/%stash-repo%"
+    packagist:            "//packagist.org/packages/scr-be/%bundle-name%"
+    "packagist_shield":   "//img.shields.io/packagist/v/scr-be/%bundle-name%.svg?style=flat-square"
+    rtd:                  "//%bundle-name%.docs.scribe.tools"
+    docs:                 "//%bundle-name%.docs.scribe.tools"
+    sami:                 "//%bundle-name%.open.scribe.tools/api/"
+    api:                  "//%bundle-name%.open.scribe.tools/api/"
+    "api_shield":         "//img.shields.io/badge/docs-API%20Reference-FF33CC.svg?style=flat-square"
     travis:
-      public:        "//travis-ci.org/scribenet/%bundle-name%"
-      private:       "//magnum.travis-ci.com/scribenet/%bundle-name%"
-    coveralls:       "//coveralls.io/r/scribenet/%bundle-name%"
-    scrutinizer:     "//scrutinizer-ci.com/g/scribenet/%bundle-name%"
-    gemnasium:       "//gemnasium.com/scribenet/%bundle-name%"
-    sensiolabs:      "//insight.sensiolabs.com/projects/%sensiolabs-id%"
+      public:             "//travis-ci.org/scr-be/%bundle-name%"
+      private:            "//magnum.travis-ci.com/scr-be/%bundle-name%"
+    "travis_shield":      "//img.shields.io/travis/scr-be/%bundle-name%/master.svg?style=flat-square"
+    coveralls:            "//coveralls.io/r/scr-be/%bundle-name%"
+    "coveralls_shield":   "//img.shields.io/coveralls/scr-be/%bundle-name%/master.svg?style=flat-square"
+    scrutinizer:          "//scrutinizer-ci.com/g/scr-be/%bundle-name%"
+    "scrutinizer_shield": "//img.shields.io/scrutinizer/g/scr-be/%bundle-name%/master.svg?style=flat-square"
+    gemnasium:            "//gemnasium.com/scr-be/%bundle-name%"
+    "gemnasium_shield":   "//img.shields.io/gemnasium/scr-be/%bundle-name%.svg?style=flat-square"
+    sensiolabs:           "//insight.sensiolabs.com/projects/%sensiolabs-id%"
   shields:
     style:           "flat-square"
     branch:          "master"
@@ -47,10 +65,10 @@ redirects:
       packagist_dev: "packagist/vpre/%packagist-name%.svg"
       rtd:           "%bundle-name%/badge/?version=latest&"
       sami:          "badge/docs-api%20reference-c75ec1.svg"
-      travis:        "/travis/scribenet/%bundle-name%/%branch%.svg"
-      coveralls:     "coveralls/scribenet/%bundle-name%/%branch%.svg"
-      scrutinizer:   "scrutinizer/g/scribenet/%bundle-name%/%branch%.svg"
-      gemnasium:     "gemnasium/scribenet/%bundle-name%.svg"
+      travis:        "/travis/scr-be/%bundle-name%/%branch%.svg"
+      coveralls:     "coveralls/scr-be/%bundle-name%/%branch%.svg"
+      scrutinizer:   "scrutinizer/g/scr-be/%bundle-name%/%branch%.svg"
+      gemnasium:     "gemnasium/scr-be/%bundle-name%.svg"
       sensiolabs:    "sensiolabs/i/%sensiolabs-id%.svg"
       license:       "badge/license-%license%-008ac6.svg"
 projects:
@@ -92,6 +110,24 @@ projects:
       scrutinizer:   true
       gemnasium:     true
       sensiolabs:    "a74fcd5f-6e34-4bc9-a790-7b29efa44741"
+  "wonka-library":
+    general:
+      license:       "MIT"
+      branch:        "master"
+    releases:
+      mainline:      "%packagist%"
+      stable:        "%packagist%"
+    services:
+      bitbucket:     true
+      github:        true
+      stash:         "PHPS/wonka-library"
+      packagist:     "scr-be/wonka-library"
+      rtd:           true
+      sami:          true
+      travis:        true
+      coveralls:     true
+      scrutinizer:   true
+      gemnasium:     true
 projects_search:
   - "scr.be"
   - "symfony-mantle-bundle"

@@ -183,7 +183,7 @@ class ConfigHandlerGitHub extends ConfigHandler
 
                 $allResults = array_merge(array_values($allResults), array_values($results));
 
-                if (!array_key_exists('next', $pages)) {
+                if (!is_array($pages) || !array_key_exists('next', $pages)) {
                     $more = false;
                 } else {
                     $next = $pages['next'];
@@ -286,10 +286,12 @@ class ConfigHandlerGitHub extends ConfigHandler
                 $this->repositories[] = ($this->attemptToGetFullRepository($repository) ?: $repository);
                 $this->repositoryNames[] = $repository['name'];
                 $this->repositoryUrls[] = $repository['html_url'];
-                $this->repositoryLicenseSlug[] =
-                    array_key_exists('license', $repository) && array_key_exists('key', $repository['license']) ?
+                $this->repositoryLicenseSlug[] = (
+                    array_key_exists('license', $repository) &&
+                    is_array($repository['license']) &&
+                    array_key_exists('key', $repository['license']) ?
                         $repository['license']['key'] : null
-                ;
+                );
                 //$this->repositoryLicenseHtml[] = $this->attemptToGetLicense($repository);
                 //$this->repositoryReadmeHtml[] = $this->attemptToGetReadme($repository);
             }

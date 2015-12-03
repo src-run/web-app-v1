@@ -25,15 +25,29 @@ $app['s.csv']->setApp($app)->loadFileContents(__DIR__.'/../resources/fixtures/de
 $app['s.cgh']->setApp($app)->init();
 $app['s.gen']->setApp($app);
 
-$app->get('/',
+// Include helper functions
+require(__DIR__.'/../stub/functions.php');
 
-    function() use ($app) {
+// ROUTE: Root redirect to main website
+$app->get('/', function() use ($app) {
 
-        return RequestHandler::returnRedirect('https://scribenet.com', $app);
+    return RequestHandler::returnRedirect('https://scribenet.com', $app);
 
-    })
-;
+});
 
+// ROUTE: Shortlink redirects
+$shortlinks(
+    ['go', 'sl', 'redirect'],
+    $app['s.csv']->getValueForKeyPath('shortlinks', 'go'),
+    $app['s.csv']->getValueForKeyPath('shortlinks', 'aliases')
+);
+$shortlinks(
+    ['get', 'file'],
+    $app['s.csv']->getValueForKeyPath('shortlinks', 'file'),
+    $app['s.csv']->getValueForKeyPath('shortlinks', 'aliases')
+);
+
+// ROUTE: Repository service (scrutinizer, coveralls, etc) redirects
 $app->get('/r/{repo}/{service}',
 
     function($repo, $service) use ($app) {
@@ -50,9 +64,9 @@ $app->get('/r/{repo}/{service}',
 
     })
     ->assert('repo', '[^/]+')
-    ->assert('service', '[\w]{0,}')
-;
+    ->assert('service', '[\w]{0,}');
 
+// ROUTE: Repository redirects
 $app->get('/r/{repo}',
 
     function($repo) use ($app) {
@@ -68,9 +82,9 @@ $app->get('/r/{repo}',
         return RequestHandler::returnRedirect($app['s.cgh']->repositoryUrls[$key], $app);
 
     })
-    ->assert('repo', '.+')
-;
+    ->assert('repo', '.+');
 
+// ROUTE: Github user service redirects (wakatime, etc)
 $app->get('/u/{user}/{service}',
 
     function($user, $service) use ($app) {
@@ -87,9 +101,9 @@ $app->get('/u/{user}/{service}',
 
     })
     ->assert('user', '[\w]{3,}')
-    ->assert('service', '[\w]{0,}')
-;
+    ->assert('service', '[\w]{0,}');
 
+// ROUTE: Github user redirects
 $app->get('/u/{user}',
 
     function($user) use ($app) {
@@ -101,9 +115,9 @@ $app->get('/u/{user}',
         return RequestHandler::returnRedirect($externalRedirect, $app);
 
     })
-    ->assert('user', '[\w]{3,}')
-;
+    ->assert('user', '[\w]{3,}');
 
+// ROUTE: Github user service redirects (wakatime, etc) with no prefix
 $app->get('/{user}/{service}',
 
     function($user, $service) use ($app) {
@@ -120,9 +134,9 @@ $app->get('/{user}/{service}',
 
     })
     ->assert('user', '[^/]+')
-    ->assert('service', '[\w]{0,}')
-;
+    ->assert('service', '[\w]{0,}');
 
+// ROUTE: Github user redirects with no prefix
 $app->get('/{user}',
 
     function($user) use ($app) {
@@ -134,8 +148,7 @@ $app->get('/{user}',
         return RequestHandler::returnRedirect($externalRedirect, $app);
 
     })
-    ->assert('user', '.+')
-;
+    ->assert('user', '.+');
 
 return $app;
 
