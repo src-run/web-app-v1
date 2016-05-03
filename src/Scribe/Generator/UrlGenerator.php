@@ -72,7 +72,7 @@ class UrlGenerator
 
         return $this->renderedFinalizedUrl(
             $gitHubUrl,
-            ['%bundle-name%', $project]
+            ['%bundle-name%' => $project]
         );
     }
 
@@ -111,21 +111,20 @@ class UrlGenerator
 
         return $this->renderedFinalizedUrl(
             $serviceUrl,
-            ['%user%', $user]
+            ['%user%' => $user]
         );
     }
 
     /**
      * @param int    $key
      * @param string $service
+     * @param string $repo
      *
      * @return null|string
      */
-    public function getRepoServiceUrl($key, $service)
+    public function getRepoServiceUrl($key, $service, $repo)
     {
-        if ($service === 'stash' || $service === 'sensiolabs') {
-            return null;
-        }
+        $paramsUrl = [];
 
         if ($service === 'travis') {
             $typeKey = ($this->app['s.cgh']->repositories[$key]['private'] ? 'private' : 'public');
@@ -133,28 +132,58 @@ class UrlGenerator
             if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service, $typeKey))) {
                 return null;
             }
-        } else {
-            if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service))) {
+        }
+        elseif ($service === 'codacy_shield') {
+            if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service)) ||
+                null === ($serviceKey = $this->getCsv()->getValueForKeyPath('projects', $repo, 'codacy_id'))) {
                 return null;
             }
+
+            $paramsUrl = array_merge($paramsUrl, [
+                '%id%' => $serviceKey
+            ]);
+        }
+        elseif (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service))) {
+            return null;
         }
 
-        return $this->renderedFinalizedUrl(
-            $serviceUrl,
-            ['%bundle-name%', $this->app['s.cgh']->repositoryNames[$key]]
-        );
+        $repoName = $this->app['s.cgh']->repositoryNames[$key];
+
+        $paramsUrl = array_merge($paramsUrl, [
+            '%bundle-name%' => $this->app['s.cgh']->repositoryNames[$key]
+        ]);
+
+        if ($service === 'group') {
+            $paramsUrl = array_merge($paramsUrl, [
+                '%search%' => substr($repoName, 0, strpos($repoName, '-'))
+            ]);
+        }
+
+        if ($service === 'group_explanation') {
+            $video = $this->getCsv()->getValueForKeyPath('group_explanation', substr($repoName, 0, strpos($repoName, '-')));
+
+            if ($video === null) {
+                return null;
+            }
+
+            $paramsUrl = array_merge($paramsUrl, [
+                '%video%' => $video
+            ]);
+        }
+
+        return $this->renderedFinalizedUrl($serviceUrl, $paramsUrl);
     }
 
     /**
      * Render a final URL, concatinating our default schema and performing any string replacements
      * per the passed replacement instruction arrays.
      *
-     * @param string  $url
-     * @param array[] $replacements
+     * @param string   $url
+     * @param string[] $replacements
      *
      * @return string
      */
-    protected function renderedFinalizedUrl($url, array ...$replacements)
+    protected function renderedFinalizedUrl($url, array $replacements)
     {
         return (string)
             $this->getPreferredSchema() .
@@ -163,37 +192,19 @@ class UrlGenerator
     }
 
     /**
-     * Perform string replacements based on the passed array of instruction sets. An instruction must be
-     * an array of string values, the last of which is the name of the function to call, with the former
-     * passed as arguments to the function. You can optionally pass an array with only two values and the
-     * default function call will be made (str_replace). The string itself is always passed as the last
-     * argument to the called function.
-     *
      * @param string  $string
      * @param array[] $instructions
-     * @param string  $defaultCall
      *
      * @return string|null
      */
-    protected function performStringReplacementInstructions($string, array $instructions = [], $defaultCall = 'str_replace')
+    protected function performStringReplacementInstructions($string, array $instructions = [])
     {
         if (null === $string || empty($string)) {
             return '';
         }
 
-        foreach ($instructions as $inst) {
-
-            if (!is_array($inst) || ($count = count($inst)) < 2) {
-                continue;
-            }
-
-            $call = ($count === 2) ? $defaultCall : array_pop($inst);
-
-            if (false === is_string($call) || false === function_exists($call)) {
-                continue;
-            }
-
-            $string = call_user_func_array($call, array_merge($inst, (array) $string));
+        foreach ($instructions as $search => $replace) {
+            $string = str_replace($search, $replace, $string);
         }
 
         return (string) $string;

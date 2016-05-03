@@ -47,6 +47,32 @@ $shortlinks(
     $app['s.csv']->getValueForKeyPath('shortlinks', 'aliases')
 );
 
+$app->get('/api/xml/travis_cc',
+
+    function() use ($app) {
+
+        
+
+        $projects = array_keys($app['s.csv']->getValueForKeyPath('projects'));
+        $xml = new SimpleXMLElement('<Projects></Projects>');
+        
+        foreach ($projects as $repo) {
+            $collection = array_values((array) $app['s.cgh']->repositoryNames);
+            $project    = $app['s.csv']->getClosestCollectionMatch($repo, $collection);
+            $key        = array_search($project, $collection);
+            $url        = $app['s.gen']->getRepoServiceUrl($key, 'travis_api_cc', $repo);
+            $remoteXml  = new SimpleXMLElement(file_get_contents($url));
+            $childXml   = $xml->addChild('Project');
+            foreach (['name', 'activity', 'lastBuildStatus', 'lastBuildLabel', 'lastBuildTime', 'webUrl'] as $attribute) {
+                $childXml->addAttribute($attribute, $remoteXml->Project[$attribute]);
+            }
+        }
+
+        return RequestHandler::returnXml($xml, $app);
+
+    });
+
+
 // ROUTE: Repository service (scrutinizer, coveralls, etc) redirects
 $app->get('/r/{repo}/{service}',
 
@@ -56,7 +82,7 @@ $app->get('/r/{repo}/{service}',
         $project    = $app['s.csv']->getClosestCollectionMatch($repo, $collection);
         $key        = array_search($project, $collection);
 
-        if (null === ($externalRedirect = $app['s.gen']->getRepoServiceUrl($key, $service))) {
+        if (null === ($externalRedirect = $app['s.gen']->getRepoServiceUrl($key, $service, $repo))) {
             return RequestHandler::returnRedirect('/', $app);
         }
 
