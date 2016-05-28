@@ -22,8 +22,8 @@ use Symfony\Component\Yaml;
  */
 class UrlGenerator
 {
-    use AppAwareModel,
-        CfgAwareModel;
+    use AppAwareModel;
+    use CfgAwareModel;
 
     /**
      * Get the preferred schema or provide the default
@@ -125,6 +125,7 @@ class UrlGenerator
     public function getRepoServiceUrl($key, $service, $repo)
     {
         $paramsUrl = [];
+        $serviceUrl = null;
 
         if ($service === 'travis') {
             $typeKey = ($this->app['s.cgh']->repositories[$key]['private'] ? 'private' : 'public');
@@ -143,9 +144,6 @@ class UrlGenerator
                 '%id%' => $serviceKey
             ]);
         }
-        elseif (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service))) {
-            return null;
-        }
 
         $repoName = $this->app['s.cgh']->repositoryNames[$key];
 
@@ -160,15 +158,22 @@ class UrlGenerator
         }
 
         if ($service === 'group_explanation') {
-            $video = $this->getCsv()->getValueForKeyPath('group_explanation', substr($repoName, 0, strpos($repoName, '-')));
+            $groupVideo = $this->getCsv()->getValueForKeyPath('group_explanation', substr($repoName, 0, strpos($repoName, '-')), 'watch');
+            $groupSearch = $this->getCsv()->getValueForKeyPath('group_explanation', substr($repoName, 0, strpos($repoName, '-')), 'search');
 
-            if ($video === null) {
+            if ($groupVideo !== null) {
+                $serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service.'_video');
+                $paramsUrl = array_merge($paramsUrl, ['%video%' => $groupVideo]);
+            } elseif ($groupSearch !== null) {
+                $serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service.'_search');
+                $paramsUrl = array_merge($paramsUrl, ['%search%' => urlencode($groupSearch)]);
+            } else {
                 return null;
             }
+        }
 
-            $paramsUrl = array_merge($paramsUrl, [
-                '%video%' => $video
-            ]);
+        if (null === $serviceUrl && null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service))) {
+            return null;
         }
 
         return $this->renderedFinalizedUrl($serviceUrl, $paramsUrl);

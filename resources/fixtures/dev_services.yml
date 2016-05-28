@@ -1,209 +1,211 @@
 ---
-general:
-  preferred_scheme:  "https"
-shortlinks:
-  aliases :
-    "open" : "open-source"
-  go :
-    "open-source": https://github.com/scr-be
-  file :
-    "get-build-knowledge.sh": https://raw.githubusercontent.com/scr-be/project-build-knowledge/aboriginal-pasta/build/env/get_build-knowledge.sh
-    "fetch-all-repos-gen-api-docs.bash": https://raw.githubusercontent.com/scr-be/build-knowledge-shared/aboriginal-pasta/build/doc/fetch-all-repos-and-gen.sh
-user_aliases:
-  robfrawley:    rmf
-  dcorrigan:     dfc
-  cchimi:        cmc
-  andrewhthomas: aht
-redirects:
-  users:
-    services:
-      git:
-        alias:       "github"
-      gitlab:
-        url:         "//git.scr.be/u/%user%"
-      lab:
-        alias:       "gitlab"
-      wakatime:
-        url:         "//wakatime.com/@%user%"
-      time:
-        alias:       "wakatime"
-  services:
-    bitbucket:            "//bitbucket.org/scribeinc/%bundle-name%"
-    github:               "//github.com/scr-be/%bundle-name%"
-    readme:               "//github.com/scr-be/%bundle-name%/blob/master/README.md"
-    "readme_shield":      "//img.shields.io/badge/docs-README-9933FF.svg?style=flat-square"
-    license:              "//github.com/scr-be/%bundle-name%/blob/master/LICENSE.md"
-    "license_shield":     "//img.shields.io/badge/license-MIT-0066FF.svg?style=flat-square"
-    stash:                "//scribe.software/code/projects/%stash-project%/repos/%stash-repo%"
-    packagist:            "//packagist.org/packages/scr-be/%bundle-name%"
-    "packagist_shield":   "//img.shields.io/packagist/v/scr-be/%bundle-name%.svg?style=flat-square"
-    rtd:                  "//%bundle-name%.docs.scribe.tools"
-    docs:                 "//%bundle-name%.docs.scribe.tools"
-    sami:                 "//%bundle-name%.open.scribe.tools/api/"
-    api:                  "//%bundle-name%.open.scribe.tools/api/"
-    "api_shield":         "//img.shields.io/badge/docs-API%20Reference-FF33CC.svg?style=flat-square"
-    travis:
-      public:             "//travis-ci.org/scr-be/%bundle-name%"
-      private:            "//magnum.travis-ci.com/scr-be/%bundle-name%"
-    "travis_shield":      "//img.shields.io/travis/scr-be/%bundle-name%/master.svg?style=flat-square"
-    coveralls:            "//coveralls.io/r/scr-be/%bundle-name%"
-    "coveralls_shield":   "//img.shields.io/coveralls/scr-be/%bundle-name%/master.svg?style=flat-square"
-    scrutinizer:          "//scrutinizer-ci.com/g/scr-be/%bundle-name%"
-    "scrutinizer_shield": "//img.shields.io/scrutinizer/g/scr-be/%bundle-name%/master.svg?style=flat-square"
-    gemnasium:            "//gemnasium.com/scr-be/%bundle-name%"
-    "gemnasium_shield":   "//img.shields.io/gemnasium/scr-be/%bundle-name%.svg?style=flat-square"
-    sensiolabs:           "//insight.sensiolabs.com/projects/%sensiolabs-id%"
-  shields:
-    style:           "flat-square"
-    branch:          "master"
-    baseurl:
-       shields:      "//img.shields.io/"
-       rtd:          "//readthedocs.org/projects/"
-    services:
-      custom:        "badge/%title%-%state%-%color%.svg"
-      packagist:     "packagist/v/%packagist-name%.svg"
-      packagist_dev: "packagist/vpre/%packagist-name%.svg"
-      rtd:           "%bundle-name%/badge/?version=latest&"
-      sami:          "badge/docs-api%20reference-c75ec1.svg"
-      travis:        "/travis/scr-be/%bundle-name%/%branch%.svg"
-      coveralls:     "coveralls/scr-be/%bundle-name%/%branch%.svg"
-      scrutinizer:   "scrutinizer/g/scr-be/%bundle-name%/%branch%.svg"
-      gemnasium:     "gemnasium/scr-be/%bundle-name%.svg"
-      sensiolabs:    "sensiolabs/i/%sensiolabs-id%.svg"
-      license:       "badge/license-%license%-008ac6.svg"
-projects:
-  symfony_mantle_bundle:
-    general:
-      license:       "MIT"
-      branch:        "master"
-    releases:
-      mainline:      "%packagist%"
-      stable:        "no stable release"
-    services:
-      bitbucket:     true
-      github:        true
-      stash:         "PHPS/mantle-bundle"
-      packagist:     "scribe/mantle-bundle"
-      rtd:           true
-      sami:          true
-      travis:        true
-      coveralls:     true
-      scrutinizer:   true
-      gemnasium:     true
-      sensiolabs:    false
-  symfony_cache_bundle:
-    general:
-      license:       "MIT"
-      branch:        "master"
-    releases:
-      mainline:      "%packagist%"
-      stable:        "%packagist%"
-    services:
-      bitbucket:     true
-      github:        true
-      stash:         "PHPS/cache-bundle"
-      packagist:     "scribe/cache-bundle"
-      rtd:           true
-      sami:          true
-      travis:        true
-      coveralls:     true
-      scrutinizer:   true
-      gemnasium:     true
-      sensiolabs:    "a74fcd5f-6e34-4bc9-a790-7b29efa44741"
+
+"general":
+
+  "preferred_scheme" : "https"
+
+
+"shortlinks":
+
+  "aliases":
+    "open"               : "open-source"
+
+  "go":
+    "scribe-home"        : "https://github.com/src-run/"
+    "explore"            : "https://src.run/groups/php"
+    "open-source"        : "https://src.run/explor"
+    "shield-no-deps"     : "https://img.shields.io/badge/dependencies-none-44cc11.svg?style=flat-square"
+    "twig-api"           : "http://twig.sensiolabs.org/api/master/index.html"
+    "twig"               : "http://twig.sensiolabs.org/"
+    "symfony-api"        : "http://api.symfony.com/"
+    "symfony"            : "https://symfony.com/"
+    "sami"               : "https://github.com/FriendsOfPHP/Sami"
+    "rtd"                : "http://readthedocs.org/"
+    "readme_welcome"     : "https://www.youtube.com/watch?v=a_FiuHOiJiY&t=1m1s"
+    "readme_imagination" : "https://www.youtube.com/watch?v=r2pt2-F2j2g&t=24s"
+    "fsf"                : "https://en.wikipedia.org/wiki/Free_Software_Foundation"
+    "osi"                : "https://en.wikipedia.org/wiki/Open_Source_Initiative"
+    "gpl"                : "https://en.wikipedia.org/wiki/GNU_General_Public_License"
+    "mit"                : "https://en.wikipedia.org/wiki/MIT_License"
+
+  "file":
+    "get-build-knowledge.sh"            : "https://raw.githubusercontent.com/src-run/project-build-knowledge/aboriginal-pasta/build/env/get_build-knowledge.sh"
+    "fetch-all-repos-gen-api-docs.bash" : "https://raw.githubusercontent.com/src-run/build-knowledge-shared/aboriginal-pasta/build/doc/fetch-all-repos-and-gen.sh"
+
+
+"user_aliases":
+
+  "robfrawley"    : "rmf"
+  "dcorrigan"     : "dfc"
+  "cchimi"        : "cmc"
+  "andrewhthomas" : "aht"
+
+
+"group_explanation":
+
+  "wonka" : 
+    watch : "WtRwBzBFSmA&t=8s"
+  "teavee" :
+    watch : "peqzq3V2WAw&t=0m22s"
+  "arthur" :
+    watch : "7xU8_TSmPCY&t=0m5s"
+  "augustus" :
+    watch : "FdSORiSaRW8&t=1s"
+  "vermicious" :
+    search : "vermicious knids"
+
+"redirects":
+
+  "users":
+    "services":
+
+      "git":
+        "alias" : "github"
+
+      "github":
+        "url"   : "//github.com/%user%"
+
+      "lab":
+        "alias" : "gitlab"
+
+      "gitlab":
+        "url"   : "//git.src.run/u/%user%"
+
+      "time":
+        "alias" : "wakatime"
+
+      "wakatime":
+        "url"   : "//wakatime.com/@%user%"
+
+  "services":
+
+    "group"                : "//github.com/src-run?query=%search%"
+    "group_explanation_video"  : "//www.youtube.com/watch?v=%video%"
+    "group_explanation_search" : "//google.com/?q=%search%#safe=off&q=%search%"
+    "bitbucket"            : "//bitbucket.org/scribeinc/%bundle-name%"
+    "github"               : "//github.com/src-run/%bundle-name%"
+    "github_issues"        : "//github.com/src-run/%bundle-name%/issues"
+    "github_collaborators" : "//github.com/src-run/%bundle-name%/graphs/contributors"
+    "gitlab"               : "//src.run/php/%bundle-name%"
+    "gitlab_issues"        : "//src.run/php/%bundle-name%/issues"
+    "contributing"         : "//github.com/src-run/%bundle-name%/blob/master/CONTRIBUTING.md"
+    "readme"               : "//github.com/src-run/%bundle-name%/blob/master/README.md"
+    "readme_shield"        : "//img.shields.io/badge/docs-README-9933FF.svg?style=flat-square"
+    "license"              : "//github.com/src-run/%bundle-name%/blob/master/LICENSE.md"
+    "license_shield"       : "//img.shields.io/badge/license-MIT-0066FF.svg?style=flat-square"
+    "packagist"            : "//packagist.org/packages/src-run/%bundle-name%"
+    "packagist_shield"     : "//img.shields.io/packagist/v/src-run/%bundle-name%.svg?style=flat-square"
+    "packagist_pre_shield" : "//img.shields.io/packagist/vpre/src-run/%bundle-name%.svg?style=flat-square"
+    "rtd"                  : "//%bundle-name%.src.run"
+    "docs"                 : "//%bundle-name%.src.run"
+    "sami"                 : "//src.run/docs/%bundle-name%/api/master/index.html"
+    "api"                  : "//src.run/docs/%bundle-name%/api/master/index.html"
+    "api_shield"           : "//img.shields.io/badge/docs-API%20Reference-FF33CC.svg?style=flat-square"
+    "coveralls"            : "//coveralls.io/r/src-run/%bundle-name%"
+    "coveralls_shield"     : "//img.shields.io/coveralls/src-run/%bundle-name%/master.svg?style=flat-square"
+    "scrutinizer"          : "//scrutinizer-ci.com/g/src-run/%bundle-name%"
+    "scrutinizer_shield"   : "//img.shields.io/scrutinizer/g/src-run/%bundle-name%/master.svg?style=flat-square"
+    "gemnasium"            : "//gemnasium.com/src-run/%bundle-name%"
+    "gemnasium_shield"     : "//img.shields.io/gemnasium/src-run/%bundle-name%.svg?style=flat-square"
+    "codacy"               : "//www.codacy.com/app/src-run/%bundle-name%"
+    "codacy_shield"        : "//img.shields.io/codacy/%id%.svg?style=flat-square"
+    "sensiolabs"           : "//insight.sensiolabs.com/projects/%sensiolabs-id%"
+    "travis_shield"        : "//img.shields.io/travis/src-run/%bundle-name%/master.svg?style=flat-square"
+    "travis_api_cc"        : "//api.travis-ci.org/repos/src-run/%bundle-name%/cc.xml"
+    "travis":
+      "public"             : "//travis-ci.org/src-run/%bundle-name%"
+      "private"            : "//magnum.travis-ci.com/src-run/%bundle-name%"
+
+  "shields":
+    "style"                : "flat-square"
+    "branch"               : "master"
+
+    "baseurl":
+       "shields"           : "//img.shields.io/"
+       "rtd"               : "//readthedocs.org/projects/"
+
+    "services":
+      "custom"             : "badge/%title%-%state%-%color%.svg"
+      "packagist"          : "packagist/v/%packagist-name%.svg"
+      "packagist_dev"      : "packagist/vpre/%packagist-name%.svg"
+      "rtd"                : "%bundle-name%/badge/?version=latest&"
+      "sami"               : "badge/docs-api%20reference-c75ec1.svg"
+      "travis"             : "/travis/src-run/%bundle-name%/%branch%.svg"
+      "coveralls"          : "coveralls/src-run/%bundle-name%/%branch%.svg"
+      "scrutinizer"        : "scrutinizer/g/src-run/%bundle-name%/%branch%.svg"
+      "gemnasium"          : "gemnasium/src-run/%bundle-name%.svg"
+      "sensiolabs"         : "sensiolabs/i/%sensiolabs-id%.svg"
+      "license"            : "badge/license-%license%-008ac6.svg"
+
+
+"projects":
+
+  "augustus-deprecation-library":
+    "codacy_id" : "a89c3b43feef4c18a5518489b5d37655"
+
+  "augustus-exception-library":
+    "codacy_id" : "602c59fe0439485e9c55e0121f836355"
+
+  "augustus-polyfill-library":
+    "codacy_id" : "b9946ced91b04106be8e667882e00dac"
+
+  "augustus-primitive-library":
+    "codacy_id" : "75f0c51a5ec6409e9ad73212740d94ea"
+
+  "augustus-reflection-library":
+    "codacy_id" : "6ac4c5d15d864e02b6ca3b436d80b0e7"
+
+  "augustus-serializer-library":
+    "codacy_id" : "6c10311680294f57aa40bc14a1b835c1"
+
+  "augustus-utility-library":
+    "codacy_id" : "8f18dad5c54b46228ccbc0c5cadbf9a2"
+
+  "vermicious-console-io-library":
+    "codacy_id" : "827d8cfe72bf42a99f72d0db1e3c8a8d"
+
+  "arthur-doctrine-exception-library":
+    "codacy_id" : "048c20254782400daf17a22f167dbd7f"
+
+  "arthur-doctrine-identity-library":
+    "codacy_id" : "0d9fed93a0034f1ea981cf7fcd659fe2"
+
+  "arthur-doctrine-traits-library":
+    "codacy_id" : "d2c1fd38afca4ea1809b74e2f2754d8b"
+
+  "arthur-doctrine-library":
+    "codacy_id" : "e234d28f7d3643c4aaa377ae92505f7a"
+
+  "arthur-doctrine-uuid-library":
+    "codacy_id" : "2891b03e2e814ae0b679d24c94a9581a"
+
+  "arthur-doctrine-fixtures-bundle":
+    "codacy_id" : "66683ef641b840beafba75f699373da8"
+
   "wonka-library":
-    general:
-      license:       "MIT"
-      branch:        "master"
-    releases:
-      mainline:      "%packagist%"
-      stable:        "%packagist%"
-    services:
-      bitbucket:     true
-      github:        true
-      stash:         "PHPS/wonka-library"
-      packagist:     "scr-be/wonka-library"
-      rtd:           true
-      sami:          true
-      travis:        true
-      coveralls:     true
-      scrutinizer:   true
-      gemnasium:     true
-projects_search:
-  - "scr.be"
-  - "symfony-mantle-bundle"
-  - "world-configuration-public"
-  - "symfony-cache-bundle"
-  - "nginx-scribe"
-  - "nginx-servats-module"
-  - "scripts-ubuntu-server"
-  - "nginx-fancyindex-theme"
-  - "symfony-magick-bundle"
-  - "scml_dtds"
-  - "ScribeSwimBundle"
-  - "ngx_http_extended_status_module"
-  - "sublime-iterator"
-  - "scml-word-templates"
-  - "Scrible"
-  - "jabiru"
-  - "ScribeFileUploaderBundle"
-  - "ScribeSyslogBundle"
-  - "bootstrap-material-design"
-  - "scribenet.github.io"
-  - "sublime-keybindings"
-  - "sublime-trailing-spaces"
-  - "sublime-encoding"
-  - "sublime-xml-validation"
-  - "sublime-validation"
-  - "sublime-invisibles"
-  - "sublime-repository"
-  - "ScribeTwoFactorAuthBundle"
-  - "ScribeClockworkBundle"
-  - "ScribeGitHubApiLibrary"
-  - "ScribeStripeBundle"
-  - "ScribeSlackBundle"
-  - "ScribeMarkdownBundle"
-  - "ScribePygmentsBundle"
-  - "ScribeResqueBundle"
-  - "ScribePheanstalkBundle"
-  - "ScribePhpSpecCodeCoverageBundle"
-  - "bootstrap-select2"
-  - "bootstrap-datetimepicker"
-  - "ScribeBootstrapMaterialDesign"
-  - "bootstrap"
-  - "jquery-textarea-autogrow"
-  - "jquery-browser-detection"
-  - "jquery-chronoline"
-  - "jQueryUploader"
-  - "number_to"
-  - "ScribeCssEmbedLibrary"
-  - "homebrew-headonly"
-  - "classy_crass"
-  - "jabiru-markbench"
-  - "Sami"
-  - "ScribeGitLabApiLibrary"
-  - "ScribeYuiCompressorLibrary"
-  - "ScribeClosureCompilerLibrary"
-  - "epubcheck"
-  - "graphdat-sdk-php"
-  - "docker-ruby_base"
-  - "file_system_project"
-  - "mit-license"
-  - "sublime-settings"
-  - "jquery-numeric"
-  - "scr-scml-indesign-templates"
-  - "bootstrap-fuelux"
-  - "sublime-templates"
-  - "puppet-main"
-  - "dam"
-  - "systems-training"
-  - "jquery-scroll-events"
-  - "iongrumeza"
-  - "bergerlaw"
-  - "scripts-osx"
-  - "zsh"
-  - "resque-php"
-  - "socrates"
-  - "sublime-dictionaries"
-  - "sublime-icons"
-  - "wfdm-features"
-  - "momentum-press"
+    "codacy_id" : "976d1226a233466183b2e76c09dc9582"
+
+  "wonka-bundle":
+    "codacy_id" : "f4e227b4b0614b809da4438bb5ee4ab0"
+
+  "teavee-object-cache-bundle":
+    "codacy_id" : "dd26e12573f74e66826d7a9691c21b2c"
+
+  "teavee-google-web-fonts-bundle":
+    "codacy_id" : "2cf6a1710d824bcaabf060466d284342"
+
+  "teavee-html-generator-bundle":
+    "codacy_id" : "f16ee593decf4a29b7d261153c4449a4"
+
+  "teavee-scribble-down-bundle":
+    "codacy_id" : "fafb2c7b32ec4ad19e765df566a1951a"
+
+  "teavee-image-magic-bundle":
+    "codacy_id" : "aa9d93539cec4dc4806c135c15e79ade"
+
+  "mantle-bundle":
+    "codacy_id" : "4724225f607149f49944d7822416b939"
+
+  "file-uploader-bundle":
+    "codacy_id" : "cc224e4849ca4b889ff33cfcfa9a6164"
+

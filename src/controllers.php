@@ -31,7 +31,7 @@ require(__DIR__.'/../stub/functions.php');
 // ROUTE: Root redirect to main website
 $app->get('/', function() use ($app) {
 
-    return RequestHandler::returnRedirect('https://scribenet.com', $app);
+    return RequestHandler::returnRedirect('https://github.com/src-run', $app);
 
 });
 
