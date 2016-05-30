@@ -21,7 +21,7 @@ $app['s.cgh'] = new ConfigHandlerGitHub();
 $app['s.gen'] = new UrlGenerator();
 
 $app['s.ehr']->attach($app);
-$app['s.csv']->setApp($app)->loadFileContents(__DIR__ . '/../resources/fixtures/dev_services.yml')->parseYamlToConfig();
+$app['s.csv']->setApp($app)->loadFileContents(__DIR__ . '/../config/services.yml')->parseYamlToConfig();
 $app['s.cgh']->setApp($app)->init();
 $app['s.gen']->setApp($app);
 

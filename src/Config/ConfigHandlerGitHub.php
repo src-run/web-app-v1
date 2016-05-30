@@ -117,7 +117,7 @@ class ConfigHandlerGitHub extends ConfigHandler
         $this->cacher->setOptions([
             \Memcached::OPT_COMPRESSION => true,
             \Memcached::OPT_SERIALIZER => (\Memcached::HAVE_IGBINARY ? \Memcached::SERIALIZER_IGBINARY : \Memcached::SERIALIZER_PHP),
-            \Memcached::OPT_PREFIX_KEY => 'scr.be_'
+            \Memcached::OPT_PREFIX_KEY => 'src-run_'
         ]);
         $this->cacherTtl = $this->getAppParam('s.github.api.cache_ttl');
 

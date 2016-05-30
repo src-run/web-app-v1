@@ -22,6 +22,7 @@ use SR\Error\ErrorHandler;
 use SR\Config\ConfigHandlerDevServices;
 use SR\Config\ConfigHandlerGitHub;
 use SR\Generator\UrlGenerator;
+use SR\Generator\ImageGenerator;
 use SR\Request\RequestHandler;
 
 if (!defined('APP_ENV')) {
@@ -30,7 +31,7 @@ if (!defined('APP_ENV')) {
 
 $app = new Application();
 
-require_once __DIR__.'/../resources/config/app_'.APP_ENV.'.php';
+require_once __DIR__.'/../config/app_'.APP_ENV.'.php';
 
 $app->register(new HttpCacheServiceProvider());
 
@@ -39,23 +40,9 @@ $app->register(new ValidatorServiceProvider());
 $app->register(new UrlGeneratorServiceProvider());
 
 $app->register(new MonologServiceProvider(), array(
-    'monolog.logfile' => __DIR__.'/../resources/log/app.log',
+    'monolog.logfile' => __DIR__.'/../var/log/app.log',
     'monolog.name'    => 'app',
     'monolog.level'   => 300 // = Logger::WARNING
-));
-
-$app->register(new TwigServiceProvider(), array(
-    'twig.options' => [
-        'cache'            => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
-        'strict_variables' => true
-    ],
-    'twig.form.templates' => [
-        'form_div_layout.html.twig',
-        'common/form_div_layout.html.twig'
-    ],
-    'twig.path' => [
-        __DIR__ . '/../resources/views'
-    ]
 ));
 
 $app->register(new SilexMemcache\MemcacheExtension(), [
@@ -74,11 +61,13 @@ $app['s.ehr'] = new ErrorHandler();
 $app['s.csv'] = new ConfigHandlerDevServices();
 $app['s.cgh'] = new ConfigHandlerGitHub();
 $app['s.gen'] = new UrlGenerator();
+$app['s.img'] = new ImageGenerator();
 
 $app['s.ehr']->attach($app);
-$app['s.csv']->setApp($app)->loadFileContents(__DIR__ . '/../resources/fixtures/dev_services.yml')->parseYamlToConfig();
+$app['s.csv']->setApp($app)->loadFileContents(__DIR__ . '/../config/dev_services.yml')->parseYamlToConfig();
 $app['s.cgh']->setApp($app)->init();
 $app['s.gen']->setApp($app);
+$app['s.img']->setApp($app);
 
 // Include helper functions
 require(__DIR__ . '/../stub/functions.php');
@@ -106,8 +95,6 @@ $app->get('/api/xml/travis_cc',
 
     function() use ($app) {
 
-
-
         $projects = array_keys($app['s.csv']->getValueForKeyPath('projects'));
         $xml = new SimpleXMLElement('<Projects></Projects>');
 
@@ -127,8 +114,28 @@ $app->get('/api/xml/travis_cc',
 
     });
 
+$serviceShieldRoute = function($repo, $service) use ($app) {
+    $service    = $service.'_shield';
+    $collection = array_values((array) $app['s.cgh']->repositoryNames);
+    $project    = $app['s.csv']->getClosestCollectionMatch($repo, $collection);
+    $key        = array_search($project, $collection);
+    $response = $app['s.img']->getRepoServiceShieldResponse($key, $service, $repo);
 
-// ROUTE: Repository service (scrutinizer, coveralls, etc) redirects
+    if (!$response) {
+        return RequestHandler::returnRedirect('/', $app);
+    }
+
+    return $response;
+};
+
+$app->get('/r/{repo}/{service}_shield', $serviceShieldRoute)
+    ->assert('repo', '[^/]+')
+    ->assert('service', '[\w]{0,}');
+
+$app->get('/r/{repo}/{service}.svg', $serviceShieldRoute)
+    ->assert('repo', '[^/]+')
+    ->assert('service', '[\w]{0,}');
+
 $app->get('/r/{repo}/{service}',
 
     function($repo, $service) use ($app) {

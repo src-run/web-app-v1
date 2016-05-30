@@ -17,36 +17,78 @@ namespace SR\Composer;
 class Script
 {
     /**
-     * Function called on Composer install.
+     * @var array[]
      */
+    const INSTRUCTIONS = [
+        'web-app-file' => [
+            __DIR__.'/../../bin/web-app', false, 0500,
+        ],
+        'cache-directory' => [
+            __DIR__.'/../../var/cache', true, 0777,
+        ],
+        'log-directory' => [
+            __DIR__.'/../../var/log', true, 0777,
+        ],
+    ];
+
     public static function install()
     {
-        self::assignFilesystemPermissions();
+        self::handleInstructionSet();
     }
 
-    /**
-     * Function called on Composer update.
-     */
     public static function update()
     {
-        self::assignFilesystemPermissions();
+        self::handleInstructionSet();
     }
 
-    /**
-     * Assign proper permissions to the cache, log, and console filesystem items.
-     */
-    public static function assignFilesystemPermissions()
+    private static function handleInstructionSet()
     {
-        if (is_dir($cacheDir = __DIR__.'../../resources/cache')) {
-            chmod($cacheDir, 0777);
+        foreach (static::INSTRUCTIONS as $name => $instruction) {
+            static::handleInstruction($name, $instruction);
+        }
+    }
+
+    private static function handleInstruction($index, $instruction)
+    {
+        if (false === $path = realpath($instruction[0])) {
+            $path = $instruction[0];
         }
 
-        if (is_dir($logDir = __DIR__.'../../resources/log')) {
-            chmod($logDir, 0777);
+        $path = str_replace(realpath(__DIR__.'/../../'), '.', $path);
+
+        echo sprintf('> Setting up %s ... ', $path);
+
+        if (substr($index, -4, 4) === 'file') {
+            static::handleFile($instruction);
+        } elseif (substr($index, -9, 9) === 'directory') {
+            static::handleDirectory($instruction);
+        }
+    }
+
+    private static function handleFile($instruction)
+    {
+        list($path, , $mod) = $instruction;
+
+        if (!file_exists($path)) {
+            echo 'skipping'.PHP_EOL;
+            return;
         }
 
-        if (file_exists($consoleFile = __DIR__.'../../bin/web-app')) {
-            chmod($consoleFile, 0500);
+        @chmod($path, $mod);
+
+        echo 'okay'.PHP_EOL;
+    }
+
+    private static function handleDirectory($instruction)
+    {
+        list($path, $create, $mod) = $instruction;
+
+        if (!is_dir($path) && $create) {
+            mkdir($path, $mod, true);
+            echo 'created'.PHP_EOL;
+        } else {
+            @chmod($path, $mod);
+            echo 'okay'.PHP_EOL;
         }
     }
 }
