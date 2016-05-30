@@ -1,0 +1,27 @@
+<?php
+
+/*
+ * This file is part of the `src-run/web-app` project.
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
+// GitHub API username, token, or client ID
+$params['github.api.username'] = 'token';
+
+// GitHub API user password, empty for token, or secret for client ID
+$params['github.api.password'] = '';
+
+// GitHub API authentication method (as constant)
+$params['github.api.method'] = \Github\Client::AUTH_HTTP_TOKEN;
+
+// GitHub API cache path.
+$params['github.api.cache_path'] = $app['cache.path'].'/github';
+
+// Users/Organization to search repositories for
+$params['github.api.organization'] = ['anOrg', 'orUser', 'secondOrg'];
+
+/* EOF */
