@@ -1,19 +1,15 @@
-# Scribe / Scr.be Website
+# `src-run/web-app` project
 
-[![Travis](https://scr.be/scr.be/shield/travis)](https://scr.be/scr.be/travis) 
-[![Scrutinizer](https://scr.be/scr.be/shield/scrutinizer)](https://scr.be/scr.be/scrutinizer)
-[![Coveralls](https://scr.be/scr.be/shield/coveralls)](https://scr.be/scr.be/coverage)
-[![Gemnasium](https://scr.be/scr.be/shield/gemnasium)](https://scr.be/scr.be/gemnasium)
+[![Travis](https://src.run/web-app/shield/travis)](https://src.run/web-app/travis) 
+[![Scrutinizer](https://src.run/web-app/shield/scrutinizer)](https://src.run/web-app/scrutinizer)
+[![Coveralls](https://src.run/web-app/shield/coveralls)](https://src.run/web-app/coverage)
+[![Gemnasium](https://src.run/web-app/shield/gemnasium)](https://src.run/web-app/gemnasium)
 
-*Scribe / Scr.be Website* is an MIT licensed, simple redirection application written using
-the minimalistic Silix framework. It is generally used for Scribe developers to provide
-repository search, service redirects, and other related handlers.
+The `src-run/web-app` project is an MIT licensed, simple redirection application written using the Silix framework.
 
-## License, Usage, API
+## License
 
-[![License](https://scr.be/scr.be/shield/license)](https://scr.be/scr.be/license)
-[![RTD](https://scr.be/scr.be/shield/api)](https://scr.be/scr.be/api)
+[![License](https://src.run/web-app/shield/license)](https://src.run/web-app/license)
 
-This project is licensed under the [MIT License](https://symfony-mantle-bundle.docs.scribe.tools/license)
-unless otherwise explicitly stated in otherwise within a project file. Auto-generated documentation
-is available via the above button.
+This project is licensed under the [MIT License](https://src.run/web-app/license) unless otherwise explicitly stated
+within a project file.

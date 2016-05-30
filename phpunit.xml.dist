@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
+
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+         backupGlobals="true"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         stopOnError="false"
-         stopOnIncomplete="false"
-         stopOnSkipped="false"
          syntaxCheck="true"
-         bootstrap="vendor/autoload.php">
-    <testsuites>
-        <testsuite name="Test Suite for scribe/scr.be">
-            <directory>./tests/</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory>./src</directory>
-            <directory>./web</directory>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="coverage-clover" target=".build/coverage/clover.xml"/>
-    </logging>
-    <php>
-        <ini name="error_reporting" value="-1" />
-        <ini name="intl.default_locale" value="en" />
-        <ini name="intl.error_level" value="0" />
-        <ini name="memory_limit" value="-1" />
-    </php>
+         bootstrap="./vendor/autoload.php">
+
+<testsuites>
+    <testsuite name="src-run/vermicious-console-io-library">
+        <directory>tests</directory>
+    </testsuite>
+</testsuites>
+
+<filter>
+    <whitelist>
+        <directory>lib</directory>
+    </whitelist>
+</filter>
+
+<logging>
+    <log type="coverage-html"
+         target="var/build/coverage/"/>
+    <log type="coverage-clover"
+         target="var/build/clover.xml"/>
+</logging>
+
+<php>
+    <ini name="error_reporting"
+         value="-1" />
+    <ini name="intl.default_locale"
+         value="en" />
+    <ini name="intl.error_level"
+         value="0" />
+    <ini name="memory_limit"
+         value="-1" />
+</php>
 </phpunit>

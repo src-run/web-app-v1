@@ -82,7 +82,6 @@
     "group"                : "//github.com/src-run?query=%search%"
     "group_explanation_video"  : "//www.youtube.com/watch?v=%video%"
     "group_explanation_search" : "//google.com/?q=%search%#safe=off&q=%search%"
-    "bitbucket"            : "//bitbucket.org/scribeinc/%bundle-name%"
     "github"               : "//github.com/src-run/%bundle-name%"
     "github_issues"        : "//github.com/src-run/%bundle-name%/issues"
     "github_collaborators" : "//github.com/src-run/%bundle-name%/graphs/contributors"

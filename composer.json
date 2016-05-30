@@ -1,32 +1,20 @@
 {
-    "name"        : "scribe/scr.be",
+    "name"        : "src-run/src.run",
     "license"     : "MIT",
     "type"        : "project",
-    "homepage"    : "https://scr.be/mantle-bundle",
-    "description" : "Small and simple Silex application to handle short link redirection for a number of (generally developer-related) use-cases.",
+    "homepage"    : "https://src.run/web-app",
+    "description" : "simple redirection application written using the Silix framework",
     "support" : {
-        "email"  : "rmf@scr.be",
-        "issues" : "https://scr.be/scr.be/issues",
-        "source" : "https://scr.be/scr.be/git",
+        "email"  : "rmf@src.run",
+        "issues" : "https://src.run/web-app/issues",
+        "source" : "https://src.run/web-app/git",
         "irc"    : "irc://irc.efnet.org/scribe"
     },
-    "keywords" : [
-        "scr.be",
-        "scribe",
-        "redirect",
-        "redirection",
-        "short-link",
-        "scr",
-        "scribenet",
-        "scribeinc",
-        "scribe-software",
-        "scribe-services"
-    ],
     "authors" : [
         {
             "name"     : "Rob Frawley 2nd",
-            "email"    : "rmf@scr.be",
-            "homepage" : "https://scr.be/rmf",
+            "email"    : "rmf@src.run",
+            "homepage" : "https://src.run/rmf",
             "role"     : "Project Lead"
         }
     ],
@@ -56,33 +44,27 @@
         "mheap/silex-memcache"   : "dev-master"
     },
     "require-dev" : {
-        "phpunit/phpunit"        : "~4.5,>=4.5.1",
-        "satooshi/php-coveralls" : "dev-multipleroot",
-        "sami/sami"              : "*@dev"
+        "phpunit/phpunit"        : "~5.0",
+        "satooshi/php-coveralls" : "*",
+        "sami/sami"              : "*"
     },
     "scripts": {
-        "post-install-cmd" : "Scribe\\Composer\\Script::install",
-        "post-update-cmd"  : "Scribe\\Composer\\Script::update"
+        "post-install-cmd" : "SR\\Composer\\Script::install",
+        "post-update-cmd"  : "SR\\Composer\\Script::update"
     },
     "autoload" : {
-        "psr-0" : {
-            "Scribe" : "src/"
+        "psr-4" : {
+            "SR\\" : "src/"
         }
     },
+    "preferred-install" : "auto",
+    "minimum-stability" : "stable",
     "config" : {
-        "bin-dir"           : "bin",
-        "preferred-install" : "auto",
-        "minimum-stability" : "stable"
+        "bin-dir" : "bin"
     },
     "extra" : {
         "branch-alias" : {
             "dev-master" : "1.0-dev"
         }
-    },
-    "repositories" : [
-        {
-            "type" : "vcs",
-            "url"  : "https://github.com/scribenet/php-coveralls.git"
-        }
-    ]
+    }
 }

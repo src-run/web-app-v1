@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * This file is part of the `src-run/web-app` project.
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
+define('APP_ENV', 'prod');
+
+require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../stub/app.php';
+
+$requestPath = $argc >= 2 ? $argv[1] : '/';
+$requestMethod = $argc >= 3 ? $argv[2] : 'GET';
+
+$request = Symfony\Component\HttpFoundation\Request::create($requestPath, $requestMethod);
+
+$app->run($request);
+
+/* EOF */

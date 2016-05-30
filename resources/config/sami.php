@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the Scr.be Application.
+ * This file is part of the `src-run/web-app` project.
  *
- * (c) Scribe Inc. <source@scribe.software>
+ * (c) Rob Frawley 2nd <rmf@src.run>
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -23,7 +23,7 @@ $iterator = Finder::create()
 
 return new Sami($iterator, [
     'theme'                => 'default',
-    'title'                => 'scribe/scr.be',
+    'title'                => 'src-run/web-app',
     'build_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . '.build' . DIRECTORY_SEPARATOR . 'docs',
     'cache_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . '.build' . DIRECTORY_SEPARATOR . 'tmp',
     'default_opened_level' => 2,
