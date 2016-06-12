@@ -1,0 +1,55 @@
+
+##
+## This file is part of the `src-run/web-app` project
+##
+## (c) Rob Frawley 2nd <rmf@src.run>
+##
+## For the full copyright and license information, please view the LICENSE.md
+## file that was distributed with this source code.
+##
+
+local_prod :
+  local         : true
+  host          : "localhost"
+  user          : rmf
+  identity_file : ~
+  stage         : prod-local
+  env           : prod
+  http_user     : rmf
+  php_fpm_ver   : "7.0"
+  branch        : master
+  deploy_path   : "/www/src-run/"
+
+local_dev :
+  local         : true
+  host          : "localhost"
+  user          : rmf
+  identity_file : ~
+  stage         : dev-local
+  env           : dev
+  http_user     : rmf
+  php_fpm_ver   : "7.0"
+  branch        : master
+  deploy_path   : "/www/src-run/"
+
+remote_prod :
+  host          : "src.consulting"
+  user          : rmf
+  identity_file : ~
+  stage         : prod
+  env           : prod
+  http_user     : www-data
+  php_fpm_ver   : "7.0"
+  branch        : master
+  deploy_path   : "/web/src-run/"
+
+remote_dev :
+  host          : "src.consulting"
+  user          : rmf
+  identity_file : ~
+  stage         : dev
+  env           : dev
+  http_user     : www-data
+  php_fpm_ver   : "7.0"
+  branch        : master
+  deploy_path   : "/web/src-run/"

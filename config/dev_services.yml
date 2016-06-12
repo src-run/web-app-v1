@@ -69,7 +69,9 @@
         "alias" : "gitlab"
 
       "gitlab":
-        "url"   : "//git.src.run/u/%user%"
+        "url"   : "//gitlab.com/u/%user%"
+        "usermap" :
+          "rmf" : "robfrawley"
 
       "time":
         "alias" : "wakatime"
@@ -163,13 +165,19 @@
   "vermicious-console-io-library":
     "codacy_id" : "827d8cfe72bf42a99f72d0db1e3c8a8d"
 
+  "vermicious-environment-library":
+    "codacy_id" : "daa429c3c5724eb482d05c1a7de29e6a"
+
+  "vermicious-deploy-library":
+    "codacy_id" : "04f631561d6248fdb3158b5ea15a9201"
+
   "arthur-doctrine-exception-library":
     "codacy_id" : "048c20254782400daf17a22f167dbd7f"
 
   "arthur-doctrine-identity-library":
     "codacy_id" : "0d9fed93a0034f1ea981cf7fcd659fe2"
 
-  "arthur-doctrine-traits-library":
+  "arthur-doctrine-entity-traits-library":
     "codacy_id" : "d2c1fd38afca4ea1809b74e2f2754d8b"
 
   "arthur-doctrine-library":

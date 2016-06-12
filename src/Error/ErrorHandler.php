@@ -31,8 +31,7 @@ class ErrorHandler
     {
         $this
             ->attachHttp($app)
-            ->attachLogic($app)
-        ;
+            ->attachLogic($app);
 
         return $this;
     }
