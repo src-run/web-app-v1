@@ -34,6 +34,9 @@ class ImageGenerator extends UrlGenerator
      */
     protected $cacherEnabled;
 
+    /**
+     * @return $this
+     */
     protected function init()
     {
         if ($this->cacher instanceof \Memcache) {
@@ -80,6 +83,11 @@ class ImageGenerator extends UrlGenerator
         return sprintf('shield-%s-%s', preg_replace('{[^a-z-]}i', '', $repo), $service);
     }
 
+    /**
+     * @param string $key
+     *
+     * @return bool|mixed
+     */
     protected function getShieldBlobCached($key)
     {
         if (!$this->cacherEnabled || false === $result = $this->cacher->get($key)) {
@@ -89,6 +97,10 @@ class ImageGenerator extends UrlGenerator
         return $result;
     }
 
+    /**
+     * @param string $key
+     * @param string $blob
+     */
     protected function setShieldBlobCached($key, $blob)
     {
         if ($this->cacherEnabled) {
@@ -96,9 +108,22 @@ class ImageGenerator extends UrlGenerator
         }
     }
 
+    /**
+     * @param string $repo
+     * @param string $service
+     * @param string $key
+     *
+     * @return bool|string
+     */
     protected function getShieldBlobFetched($repo, $service, $key)
     {
         $url = $this->getApp()['s.gen']->getRepoServiceUrl($key, $service, $repo);
+
+        if (1 === preg_match('{\%id\%}', $url)) {
+            $url = sprintf(
+                'https://img.shields.io/badge/%s-unknown-orange.svg?style=flat-square',
+                preg_replace('{[^a-z0-9-]+}i', '', str_replace('_', '--', str_replace('_shield', '', $service))));
+        }
 
         if (false === $blob = file_get_contents($url)) {
             return false;

@@ -196,10 +196,12 @@
     "codacy_id" : "66683ef641b840beafba75f699373da8"
 
   "wonka-library":
-    "codacy_id" : "976d1226a233466183b2e76c09dc9582"
+    "codacy_id"  : "976d1226a233466183b2e76c09dc9582"
+    "styleci_id" : "42804599"
 
   "wonka-bundle":
-    "codacy_id" : "f4e227b4b0614b809da4438bb5ee4ab0"
+    "codacy_id"  : "f4e227b4b0614b809da4438bb5ee4ab0"
+    "styleci_id" : "42904556"
 
   "teavee-object-cache-bundle":
     "codacy_id" : "dd26e12573f74e66826d7a9691c21b2c"
