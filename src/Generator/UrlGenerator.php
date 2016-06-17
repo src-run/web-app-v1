@@ -170,6 +170,14 @@ class UrlGenerator
             }
         }
 
+        if ($service === 'styleci' || $service === 'styleci_shield') {
+            if (null === $styleciId = $this->getCsv()->getValueForKeyPath('projects', $repoName, 'styleci_id')) {
+                return null;
+            }
+
+            $paramsUrl = array_merge($paramsUrl, ['%id%' => $styleciId]);
+        }
+
         if (null === $serviceUrl && null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service))) {
             return null;
         }

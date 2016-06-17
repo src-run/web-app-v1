@@ -5,13 +5,13 @@ set('shared_files', [
     'config/app_prod.php',
     'config/app_dev.php',
     'config/parameters.php',
-    'config/dev_services.yml'
+    'config/services.yml'
 ]);
 set('shared_file_fixtures', [
     'config/app_prod.php' => 'config/app_prod.php',
     'config/app_dev.php' => 'config/app_dev.php',
     'config/parameters.php' => 'config/parameters.php',
-    'config/dev_services.yml' => 'config/dev_services.yml',
+    'config/services.yml' => 'config/services.yml',
 ]);
 set('var_dir', '.');
 set('cache_dir', 'cache');
