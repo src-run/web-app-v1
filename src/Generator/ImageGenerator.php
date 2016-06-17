@@ -120,16 +120,29 @@ class ImageGenerator extends UrlGenerator
         $url = $this->getApp()['s.gen']->getRepoServiceUrl($key, $service, $repo);
 
         if (1 === preg_match('{\%id\%}', $url)) {
-            $url = sprintf(
-                'https://img.shields.io/badge/%s-unknown-orange.svg?style=flat-square',
-                preg_replace('{[^a-z0-9-]+}i', '', str_replace('_', '--', str_replace('_shield', '', $service))));
+            return $this->getShieldBlobUnknown($service);
         }
 
-        if (false === $blob = file_get_contents($url)) {
-            return false;
+        if (!$blob = @file_get_contents($url)) {
+            return $this->getShieldBlobUnknown($service);
         }
 
         return $blob;
+    }
+
+    /**
+     * @param string $service
+     * 
+     * @return string
+     */
+    protected function getShieldBlobUnknown($service)
+    {
+        $url = sprintf(
+            'https://img.shields.io/badge/%s-unknown-orange.svg?style=flat-square',
+            preg_replace('{[^a-z0-9-]+}i', '', str_replace('_', '--', str_replace('_shield', '', $service))));
+
+
+        return file_get_contents($url);
     }
 }
 
