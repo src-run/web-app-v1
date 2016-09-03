@@ -79,7 +79,7 @@ $app->get('/', function() use ($app) {
 
 });
 
-// ROUTE: Shortlink redirects
+// ROUTE: Short link redirects
 $shortLinks(
     ['go', 'sl', 'redirect'],
     $app['s.csv']->getValueForKeyPath('shortlinks', 'go'),
@@ -90,6 +90,24 @@ $shortLinks(
     $app['s.csv']->getValueForKeyPath('shortlinks', 'file'),
     $app['s.csv']->getValueForKeyPath('shortlinks', 'aliases')
 );
+
+// ROUTE: External shields
+$app->get('/shield/{org}/{repo}/{service}.svg',
+
+    function($org, $repo, $service) use ($app) {
+
+        $response = $app['s.img']->getExternalRepoServiceShieldResponse($service, $org, $repo);
+
+        if (!$response) {
+            return RequestHandler::returnRedirect('/', $app);
+        }
+
+        return $response;
+
+    })
+    ->assert('org', '[^/]+')
+    ->assert('repo', '[^/]+')
+    ->assert('service', '[\w]{0,}');
 
 $app->get('/api/xml/travis_cc',
 

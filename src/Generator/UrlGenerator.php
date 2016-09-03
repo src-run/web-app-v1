@@ -120,9 +120,44 @@ class UrlGenerator
      *
      * @return null|string
      */
+    public function getExternalRepoServiceUrl($service, $org, $repo)
+    {
+        $serviceUrl = null;
+        $paramsUrl = [
+            '%org%' => $org,
+            '%bundle-name%' => $repo,
+        ];
+        $service = [$service];
+
+        if ($service[0] === 'travis') {
+            $service[] = 'public';
+        }
+
+        if (strpos($repo, ':')) {
+            $parts = explode(':', $repo);
+            $paramsUrl['%bundle-name%'] = array_shift($parts);
+            $paramsUrl['%id%'] = array_shift($parts);
+        }
+
+        if (null === $serviceUrl && null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', ...$service))) {
+            return null;
+        }
+
+        return $this->renderedFinalizedUrl($serviceUrl, $paramsUrl);
+    }
+
+    /**
+     * @param int    $key
+     * @param string $service
+     * @param string $repo
+     *
+     * @return null|string
+     */
     public function getRepoServiceUrl($key, $service, $repo)
     {
-        $paramsUrl = [];
+        $paramsUrl = [
+            '%org%' => 'src-run'
+        ];
         $serviceUrl = null;
 
         if ($service === 'travis') {

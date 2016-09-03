@@ -47,11 +47,25 @@ $shortLinks(
     $app['s.csv']->getValueForKeyPath('shortlinks', 'aliases')
 );
 
+// ROUTE: External shields
+$app->get('/shield/{org}/{repo}/{service}.svg',
+
+    function($org, $repo, $service) use ($app) {
+
+        var_dump($org);
+        var_dump($repo);
+        var_dump($service);
+        die();
+
+    })
+    ->assert('org', '[^/]+')
+    ->assert('repo', '[^/]+')
+    ->assert('service', '[\w]{0,}');
+
+// ROUTE: Travis CC file
 $app->get('/api/xml/travis_cc',
 
     function() use ($app) {
-
-
 
         $projects = array_keys($app['s.csv']->getValueForKeyPath('projects'));
         $xml = new SimpleXMLElement('<Projects></Projects>');

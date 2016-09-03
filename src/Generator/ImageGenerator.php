@@ -58,11 +58,25 @@ class ImageGenerator extends UrlGenerator
         return $this;
     }
 
+    public function getExternalRepoServiceShieldResponse($service, $org, $repo)
+    {
+        $this->init();
+
+        $shieldKey = $this->getShieldKey($service, $org, $repo);
+
+        if (false === $blob = $this->getShieldBlobCached($shieldKey)) {
+            $blob = $this->getExternalShieldBlobFetched($service, $org, $repo);
+            $this->setShieldBlobCached($shieldKey, $blob);
+        }
+
+        return new Response($blob, 200, ['Content-Type' => 'image/svg+xml']);
+    }
+
     public function getRepoServiceShieldResponse($key, $service, $repo)
     {
         $this->init();
 
-        $shieldKey = $this->getShieldKey($repo, $service);
+        $shieldKey = $this->getShieldKey($service, $repo);
 
         if (false === $blob = $this->getShieldBlobCached($shieldKey)) {
             $blob = $this->getShieldBlobFetched($repo, $service, $key);
@@ -73,14 +87,16 @@ class ImageGenerator extends UrlGenerator
     }
 
     /**
-     * @param string $repo
      * @param string $service
+     * @param string ...$repoParameters
      *
      * @return string
      */
-    protected function getShieldKey($repo, $service)
+    protected function getShieldKey($service, ...$repoParameters)
     {
-        return sprintf('shield-%s-%s', preg_replace('{[^a-z-]}i', '', $repo), $service);
+        $repo = implode('-', $repoParameters);
+
+        return strtolower(preg_replace('{[-]+}i', '-', preg_replace('{[^a-z-]}i', '-', sprintf('shield-%s-%s', $service, $repo))));
     }
 
     /**
@@ -109,6 +125,28 @@ class ImageGenerator extends UrlGenerator
     }
 
     /**
+     * @param string $service
+     * @param string $org
+     * @param string $repo
+     *
+     * @return bool|string
+     */
+    protected function getExternalShieldBlobFetched($service, $org, $repo)
+    {
+        $url = $this->getApp()['s.gen']->getExternalRepoServiceUrl($service.'_shield', $org, $repo);
+
+        if (1 === preg_match('{\%id\%}', $url)) {
+            return $this->getShieldBlobUnknown($service);
+        }
+
+        if (!$blob = @file_get_contents($url)) {
+            return $this->getShieldBlobUnknown($service);
+        }
+
+        return $blob;
+    }
+
+    /**
      * @param string $repo
      * @param string $service
      * @param string $key
@@ -132,7 +170,7 @@ class ImageGenerator extends UrlGenerator
 
     /**
      * @param string $service
-     * 
+     *
      * @return string
      */
     protected function getShieldBlobUnknown($service)
