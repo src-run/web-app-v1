@@ -122,6 +122,14 @@ class UrlGenerator
      */
     public function getExternalRepoServiceUrl($service, $org, $repo)
     {
+        if (false !== strpos($service, 'packagist')) {
+            $repoParts = explode('++++', strtolower(preg_replace('#(?<=\\w)(?=[A-Z])#', '++++$1', $repo)));
+            if (false !== $key = array_search($org, $repoParts)) {
+                unset($repoParts[$key]);
+            }
+            $repo = implode('-', $repoParts);
+        }
+
         $serviceUrl = null;
         $paramsUrl = [
             '%org%' => $org,
