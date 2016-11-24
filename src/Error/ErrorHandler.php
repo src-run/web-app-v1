@@ -1,6 +1,7 @@
 <?php
+
 /*
- * This file is part of the `src-run/web-app` project
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -14,14 +15,12 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ErrorHandler
- *
- * @package ScriBe
+ * Class ErrorHandler.
  */
 class ErrorHandler
 {
     /**
-     * Attach error handlers to application
+     * Attach error handlers to application.
      *
      * @param Application $app
      *
@@ -37,7 +36,7 @@ class ErrorHandler
     }
 
     /**
-     * Attach http error-code handler
+     * Attach http error-code handler.
      *
      * @param Application $app
      *
@@ -64,7 +63,7 @@ class ErrorHandler
     }
 
     /**
-     * Attach Logic exception handler
+     * Attach Logic exception handler.
      *
      * @param Application $app
      *

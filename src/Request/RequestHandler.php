@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/web-app` project.
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class RequestHandler
+ * Class RequestHandler.
  */
 class RequestHandler
 {
@@ -42,7 +42,7 @@ class RequestHandler
     public static function returnXml(\SimpleXMLElement $xml, Application $app, $code = 200)
     {
         return new Response($xml->asXML(), 200, [
-            'Content-Type' => 'application/xml'
+            'Content-Type' => 'application/xml',
         ]);
     }
 }

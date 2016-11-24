@@ -1,6 +1,7 @@
 <?php
+
 /*
- * This file is part of the `src-run/web-app` project
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -12,11 +13,9 @@ namespace SR\Generator;
 
 use SR\Model\AppAwareModel;
 use SR\Model\CfgAwareModel;
-use Silex\Application;
-use Symfony\Component\Yaml;
 
 /**
- * Class ConfigURLGen
+ * Class ConfigURLGen.
  */
 class UrlGenerator
 {
@@ -24,17 +23,17 @@ class UrlGenerator
     use CfgAwareModel;
 
     /**
-     * Get the preferred schema or provide the default
+     * Get the preferred schema or provide the default.
      *
      * @return string
      */
     public function getPreferredSchema()
     {
-        return (string) ($this->getCsv()->getValueForKeyPath('general', 'preferred_scheme') ?: "https") . ':';
+        return (string) ($this->getCsv()->getValueForKeyPath('general', 'preferred_scheme') ?: 'https').':';
     }
 
     /**
-     * Return GitHub profile path from given username
+     * Return GitHub profile path from given username.
      *
      * @param string $username
      *
@@ -53,7 +52,7 @@ class UrlGenerator
     }
 
     /**
-     * Return GitHub profile path from given username
+     * Return GitHub profile path from given username.
      *
      * @param string $project
      *
@@ -75,10 +74,10 @@ class UrlGenerator
     }
 
     /**
-     * Return the service URL for the provided username
+     * Return the service URL for the provided username.
      *
-     * @param string        $user
-     * @param string        $service
+     * @param string $user
+     * @param string $service
      *
      * @return string|null
      */
@@ -176,27 +175,26 @@ class UrlGenerator
             if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service, $typeKey))) {
                 return null;
             }
-        }
-        elseif ($service === 'codacy_shield') {
+        } elseif ($service === 'codacy_shield') {
             if (null === ($serviceUrl = $this->getCsv()->getValueForKeyPath('redirects', 'services', $service)) ||
                 null === ($serviceKey = $this->getCsv()->getValueForKeyPath('projects', $repo, 'codacy_id'))) {
                 return null;
             }
 
             $paramsUrl = array_merge($paramsUrl, [
-                '%id%' => $serviceKey
+                '%id%' => $serviceKey,
             ]);
         }
 
         $repoName = $this->app['s.cgh']->repositoryNames[$key];
 
         $paramsUrl = array_merge($paramsUrl, [
-            '%bundle-name%' => $this->app['s.cgh']->repositoryNames[$key]
+            '%bundle-name%' => $this->app['s.cgh']->repositoryNames[$key],
         ]);
 
         if ($service === 'group') {
             $paramsUrl = array_merge($paramsUrl, [
-                '%search%' => substr($repoName, 0, strpos($repoName, '-'))
+                '%search%' => substr($repoName, 0, strpos($repoName, '-')),
             ]);
         }
 
@@ -240,7 +238,7 @@ class UrlGenerator
     protected function renderedFinalizedUrl($url, array $replacements)
     {
         return (string)
-            $this->getPreferredSchema() .
+            $this->getPreferredSchema().
             $this->performStringReplacementInstructions($url, $replacements)
         ;
     }

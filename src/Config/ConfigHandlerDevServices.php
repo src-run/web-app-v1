@@ -1,6 +1,7 @@
 <?php
+
 /*
- * This file is part of the `src-run/web-app` project
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -10,10 +11,8 @@
 
 namespace SR\Config;
 
-use Symfony\Component\Yaml;
-
 /**
- * Class ConfigHandlerDevServices
+ * Class ConfigHandlerDevServices.
  */
 class ConfigHandlerDevServices extends ConfigHandlerYaml
 {

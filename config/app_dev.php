@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/web-app` project.
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -10,7 +10,7 @@
  */
 
 // Include the production configuration
-require __DIR__ . DIRECTORY_SEPARATOR . 'app_prod.php';
+require __DIR__.DIRECTORY_SEPARATOR.'app_prod.php';
 
 // Enable debug mode
 $app['debug'] = true;

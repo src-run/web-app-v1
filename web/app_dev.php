@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/web-app` project.
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -12,7 +12,7 @@
 define('APP_ENV', 'dev');
 
 require_once __DIR__.'/../vendor/autoload.php';
-require_once __DIR__ . '/../stub/app.php';
+require_once __DIR__.'/../stub/app.php';
 
 $app->run();
 

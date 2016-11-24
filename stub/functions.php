@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/web-app` project.
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -11,8 +11,7 @@
 
 namespace {
 
-    $shortLinks = function(array $startUris = [], array $links = null, array $aliases = null) use ($app)
-    {
+    $shortLinks = function (array $startUris = [], array $links = null, array $aliases = null) use ($app) {
         if (false === (count($links) > 0)) {
             return;
         }

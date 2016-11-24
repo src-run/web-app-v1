@@ -71,6 +71,7 @@ class Script
 
         if (!file_exists($path)) {
             echo 'skipping'.PHP_EOL;
+
             return;
         }
 

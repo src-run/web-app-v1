@@ -1,6 +1,7 @@
 <?php
+
 /*
- * This file is part of the `src-run/web-app` project
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -13,7 +14,7 @@ namespace SR\Config;
 use Symfony\Component\Yaml;
 
 /**
- * Class ConfigHandler
+ * Class ConfigHandler.
  */
 class ConfigHandlerYaml extends ConfigHandler
 {
@@ -38,7 +39,7 @@ class ConfigHandlerYaml extends ConfigHandler
     protected $yaml;
 
     /**
-     * Load file contents
+     * Load file contents.
      *
      * @param string $filePath
      *
@@ -74,26 +75,26 @@ class ConfigHandlerYaml extends ConfigHandler
     }
 
     /**
-     * Read and parse yaml file contents
+     * Read and parse yaml file contents.
      *
      * @return $this
      */
     public function parseYamlToConfig()
     {
-        $this->parser = new Yaml\Parser;
+        $this->parser = new Yaml\Parser();
         $this->yaml = $this->parser->parse($this->fileContents);
 
         return $this;
     }
 
     /**
-     * Get YAML array contents
+     * Get YAML array contents.
      *
      * @return array
      */
     public function getYamlArray()
     {
-        return (array)$this->yaml;
+        return (array) $this->yaml;
     }
 
     /**
@@ -105,8 +106,8 @@ class ConfigHandlerYaml extends ConfigHandler
     {
         $interm = $this->yaml;
 
-        foreach ((array)$keys as $k) {
-            if (false === array_key_exists($k, (array)$interm)) {
+        foreach ((array) $keys as $k) {
+            if (false === array_key_exists($k, (array) $interm)) {
                 return null;
             }
 

@@ -1,6 +1,7 @@
 <?php
+
 /*
- * This file is part of the `src-run/web-app` project
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -10,12 +11,10 @@
 
 namespace SR\Generator;
 
-use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Yaml;
 
 /**
- * Class ImageGenerator
+ * Class ImageGenerator.
  */
 class ImageGenerator extends UrlGenerator
 {
@@ -51,7 +50,7 @@ class ImageGenerator extends UrlGenerator
         $this->cacher->setOptions([
             \Memcached::OPT_COMPRESSION => true,
             \Memcached::OPT_SERIALIZER => (\Memcached::HAVE_IGBINARY ? \Memcached::SERIALIZER_IGBINARY : \Memcached::SERIALIZER_PHP),
-            \Memcached::OPT_PREFIX_KEY => 'src-run_'
+            \Memcached::OPT_PREFIX_KEY => 'src-run_',
         ]);
         $this->cacherTtl = $this->getAppParam('s.shield.cache_ttl');
 
@@ -182,7 +181,6 @@ class ImageGenerator extends UrlGenerator
         $url = sprintf(
             'https://img.shields.io/badge/%s-unknown-orange.svg?style=flat-square',
             preg_replace('{[^a-z0-9-]+}i', '', str_replace('_', '--', str_replace('_shield', '', $service))));
-
 
         return file_get_contents($url);
     }

@@ -1,6 +1,7 @@
 <?php
+
 /*
- * This file is part of the `src-run/web-app` project
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -10,12 +11,11 @@
 
 namespace SR\Config;
 
-use SR\Model\AppAwareModel;
-use Silex\Application;
 use Eloquent\Lcs\LcsSolver;
+use SR\Model\AppAwareModel;
 
 /**
- * Class ConfigHandler
+ * Class ConfigHandler.
  */
 class ConfigHandler
 {
@@ -33,7 +33,7 @@ class ConfigHandler
         }
 
         $collectionSortedByLcs = $this->getCollectionSortedByLcs($search, $collection);
-        $collectionTopByLcs    = $this->getCollectionTopByLcs($collectionSortedByLcs);
+        $collectionTopByLcs = $this->getCollectionTopByLcs($collectionSortedByLcs);
 
         if (false === (count($collectionTopByLcs) > 0)) {
             return null;
@@ -60,9 +60,9 @@ class ConfigHandler
      */
     public function getCollectionSortedByLcs($search, array $collection = [])
     {
-        $solver = new LcsSolver;
+        $solver = new LcsSolver();
 
-        array_walk($collection, function(&$value, $key) use ($search, $solver) {
+        array_walk($collection, function (&$value, $key) use ($search, $solver) {
             $value = [
                 'lcs' => $solver->longestCommonSubsequence(str_split($value), str_split($search)),
                 'val' => $value,
@@ -70,7 +70,7 @@ class ConfigHandler
             ];
         });
 
-        uasort($collection, function(&$a, $b) {
+        uasort($collection, function (&$a, $b) {
             $aChars = str_split($a['val'], 1);
             $bChars = str_split($b['val'], 1);
 
@@ -96,17 +96,17 @@ class ConfigHandler
         }
 
         $collection = array_values($collection);
-        $highest    = 0;
-        $total      = count($collection) - 1;
-        $last       = $total;
+        $highest = 0;
+        $total = count($collection) - 1;
+        $last = $total;
 
-        for ($i = $total; $i > 0; $i--) {
+        for ($i = $total; $i > 0; --$i) {
             if (count($collection[$i]['lcs']) < $highest) {
                 break;
             }
 
             $highest = count($collection[$i]['lcs']);
-            $last    = $i;
+            $last = $i;
         }
 
         return (array) @array_splice($collection, $last);
@@ -115,14 +115,12 @@ class ConfigHandler
     /**
      * @param string $search
      * @param array  $collection
-     *
-     * @return null
      */
     public function getCollectionSortedByLev($search, array $collection = [])
     {
         $shortest = -1;
-        $closest  = null;
-        $collection = array_values(array_map(function($value) {
+        $closest = null;
+        $collection = array_values(array_map(function ($value) {
             $value['lwr'] = strtolower($value['val']);
 
             return $value;
@@ -132,14 +130,14 @@ class ConfigHandler
             $lev = levenshtein($search, $item['lwr']);
 
             if ($lev == 0) {
-                $closest  = $item;
+                $closest = $item;
                 $shortest = 0;
 
                 break;
             }
 
             if ($lev <= $shortest || $shortest < 0) {
-                $closest  = $item;
+                $closest = $item;
                 $shortest = $lev;
             }
         }

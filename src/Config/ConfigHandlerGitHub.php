@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/web-app` project
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -10,6 +10,7 @@
  */
 
 namespace SR\Config;
+
 use Github\Client;
 use Github\Exception\RuntimeException;
 use Github\HttpClient\HttpClient;
@@ -117,7 +118,7 @@ class ConfigHandlerGitHub extends ConfigHandler
         $this->cacher->setOptions([
             \Memcached::OPT_COMPRESSION => true,
             \Memcached::OPT_SERIALIZER => (\Memcached::HAVE_IGBINARY ? \Memcached::SERIALIZER_IGBINARY : \Memcached::SERIALIZER_PHP),
-            \Memcached::OPT_PREFIX_KEY => 'src-run_'
+            \Memcached::OPT_PREFIX_KEY => 'src-run_',
         ]);
         $this->cacherTtl = $this->getAppParam('s.github.api.cache_ttl');
 
@@ -162,7 +163,7 @@ class ConfigHandlerGitHub extends ConfigHandler
             $this->userLogin = $userData['userLogin'];
             $this->userAlias = $userData['userAlias'];
 
-            array_walk($this->userLogin, function(&$v) {
+            array_walk($this->userLogin, function (&$v) {
                 $v = strtolower($v);
             });
 
@@ -178,8 +179,8 @@ class ConfigHandlerGitHub extends ConfigHandler
 
             while ($more === true) {
                 $response = $this->client->getHttpClient()->get($apiBase, ($paramsNext ? $paramsNext : $params));
-                $results  = ResponseMediator::getContent($response);
-                $pages    = ResponseMediator::getPagination($response);
+                $results = ResponseMediator::getContent($response);
+                $pages = ResponseMediator::getPagination($response);
 
                 $allResults = array_merge(array_values($allResults), array_values($results));
 
@@ -222,7 +223,7 @@ class ConfigHandlerGitHub extends ConfigHandler
             $this->cacher->set($cacheKey, $userData, $this->cacherTtl);
         }
 
-        array_walk($this->userLogin, function(&$v) {
+        array_walk($this->userLogin, function (&$v) {
             $v = strtolower($v);
         });
 
@@ -264,13 +265,13 @@ class ConfigHandlerGitHub extends ConfigHandler
         }
 
         foreach ($owners as $o) {
-            $apiRepo     = $this->client->api('organization');
-            $http        = $this->client->getHttpClient();
+            $apiRepo = $this->client->api('organization');
+            $http = $this->client->getHttpClient();
             $resultPager = new ResultPager($this->client);
-            $getParams   = [$o];
+            $getParams = [$o];
             $http->setOption('api_version', 'drax-preview');
             $http->setHeaders(['Accept' => 'application/vnd.github.drax-preview+json']);
-            $results     = $resultPager->fetchAll($apiRepo, 'repositories', $getParams);
+            $results = $resultPager->fetchAll($apiRepo, 'repositories', $getParams);
 
             if (!is_array($results) || !(count($results) > 0)) {
                 continue;
@@ -320,7 +321,7 @@ class ConfigHandlerGitHub extends ConfigHandler
     {
         try {
             $http = new HttpClient(['api_version' => 'drax-preview']);
-            $response = $http->get('repos/' . $repository['full_name']);
+            $response = $http->get('repos/'.$repository['full_name']);
             $repo = ResponseMediator::getContent($response);
         } catch (RuntimeException $e) {
             return null;
@@ -341,7 +342,7 @@ class ConfigHandlerGitHub extends ConfigHandler
         try {
             $http = new HttpClient();
             $http->setHeaders(['Accept' => 'application/vnd.github.VERSION.html']);
-            $response = $http->get('repos/' . $repository['full_name'] . '/contents/LICENSE.md');
+            $response = $http->get('repos/'.$repository['full_name'].'/contents/LICENSE.md');
             $license = ResponseMediator::getContent($response);
         } catch (RuntimeException $e) {
             $license = null;
@@ -354,7 +355,7 @@ class ConfigHandlerGitHub extends ConfigHandler
         try {
             $http = new HttpClient();
             $http->setHeaders(['Accept' => 'application/vnd.github.VERSION.raw']);
-            $response = $http->get('repos/' . $repository['full_name'] . '/contents/LICENSE');
+            $response = $http->get('repos/'.$repository['full_name'].'/contents/LICENSE');
             $license = ResponseMediator::getContent($response);
         } catch (RuntimeException $e) {
             $license = null;
@@ -375,7 +376,7 @@ class ConfigHandlerGitHub extends ConfigHandler
         try {
             $http = new HttpClient();
             $http->setHeaders(['Accept' => 'application/vnd.github.VERSION.html']);
-            $response = $http->get('repos/' . $repository['full_name'] . '/readme');
+            $response = $http->get('repos/'.$repository['full_name'].'/readme');
             $readme = ResponseMediator::getContent($response);
         } catch (RuntimeException $e) {
             $readme = null;
@@ -388,7 +389,7 @@ class ConfigHandlerGitHub extends ConfigHandler
         try {
             $http = new HttpClient();
             $http->setHeaders(['Accept' => 'application/vnd.github.VERSION.raw']);
-            $response = $http->get('repos/' . $repository['full_name'] . '/readme');
+            $response = $http->get('repos/'.$repository['full_name'].'/readme');
             $readme = ResponseMediator::getContent($response);
         } catch (RuntimeException $e) {
             $readme = null;

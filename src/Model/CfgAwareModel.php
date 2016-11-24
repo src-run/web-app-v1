@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/web-app` project
+ * This file is part of the `src-run/web-app-v1` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -16,7 +16,7 @@ use SR\Config\ConfigHandler;
 use SR\Config\ConfigHandlerDevServices;
 
 /**
- * Class CfgAwareModel
+ * Class CfgAwareModel.
  */
 trait CfgAwareModel
 {
@@ -26,7 +26,7 @@ trait CfgAwareModel
     abstract public function getApp();
 
     /**
-     * Get config handler
+     * Get config handler.
      *
      * @return ConfigHandler
      */
