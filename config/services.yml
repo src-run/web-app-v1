@@ -114,7 +114,7 @@
     "sensiolabs"               : "//insight.sensiolabs.com/projects/%sensiolabs-id%"
     "styleci"                  : "//styleci.io/repos/%id%"
     "styleci_shield"           : "//styleci.io/repos/%id%/shield"
-    "travis_shield"            : "//img.shields.io/travis/%org%/%bundle-name%/branch%.svg?style=flat-square"
+    "travis_shield"            : "//img.shields.io/travis/%org%/%bundle-name%/%branch%.svg?style=flat-square"
     "travis_api_cc"            : "//api.travis-ci.org/repos/%org%/%bundle-name%/cc.xml"
     "travis":
       "public"                 : "//travis-ci.org/%org%/%bundle-name%"
