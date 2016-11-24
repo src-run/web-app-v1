@@ -33,7 +33,7 @@ local_dev :
   deploy_path   : "/www/src-run/"
 
 remote_prod :
-  host          : "src.consulting"
+  host          : "src.run"
   user          : rmf
   identity_file : ~
   stage         : prod
@@ -44,7 +44,7 @@ remote_prod :
   deploy_path   : "/web/src-run/"
 
 remote_dev :
-  host          : "src.consulting"
+  host          : "src.run"
   user          : rmf
   identity_file : ~
   stage         : dev
