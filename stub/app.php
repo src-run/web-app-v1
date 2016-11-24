@@ -88,7 +88,7 @@ $shortLinks(
     $app['s.csv']->getValueForKeyPath('shortlinks', 'aliases')
 );
 
-// ROUTE: External shields
+// ROUTE: External shields (with branch)
 $app->get('/shield/{org}/{repo}/{branch}/{service}.svg',
 
     function ($org, $repo, $branch, $service) use ($app) {
@@ -116,6 +116,35 @@ $app->get('/shield/{org}/{repo}/{service}.svg',
         }
 
         return $response;
+    })
+    ->assert('org', '[^/]+')
+    ->assert('repo', '[^/]+')
+    ->assert('service', '[\w]{0,}');
+
+// ROUTE: External repos (with branch)
+$app->get('/repo/{org}/{repo}/{branch}/{service}',
+
+    function ($org, $repo, $branch, $service) use ($app) {
+        if (null === ($response = $app['s.gen']->getExternalRepoServiceUrl($service, $org, $repo, $branch))) {
+            return RequestHandler::returnRedirect('/', $app);
+        }
+
+        return RequestHandler::returnRedirect($response, $app);
+    })
+    ->assert('org', '[^/]+')
+    ->assert('repo', '[^/]+')
+    ->assert('branch', '[^/]+')
+    ->assert('service', '[\w]{0,}');
+
+// ROUTE: External repos
+$app->get('/repo/{org}/{repo}/{service}',
+
+    function ($org, $repo, $service) use ($app) {
+        if (null === ($response = $app['s.gen']->getExternalRepoServiceUrl($service, $org, $repo))) {
+            return RequestHandler::returnRedirect('/', $app);
+        }
+
+        return RequestHandler::returnRedirect($response, $app);
     })
     ->assert('org', '[^/]+')
     ->assert('repo', '[^/]+')
