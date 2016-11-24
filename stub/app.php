@@ -92,6 +92,25 @@ $shortLinks(
 );
 
 // ROUTE: External shields
+$app->get('/shield/{org}/{repo}/{branch}/{service}.svg',
+
+    function($org, $repo, $branch, $service) use ($app) {
+
+        $response = $app['s.img']->getExternalRepoServiceShieldResponse($service, $org, $repo, $branch);
+
+        if (!$response) {
+            return RequestHandler::returnRedirect('/', $app);
+        }
+
+        return $response;
+
+    })
+    ->assert('org', '[^/]+')
+    ->assert('repo', '[^/]+')
+    ->assert('branch', '[^/]+')
+    ->assert('service', '[\w]{0,}');
+
+// ROUTE: External shields
 $app->get('/shield/{org}/{repo}/{service}.svg',
 
     function($org, $repo, $service) use ($app) {

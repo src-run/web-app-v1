@@ -58,14 +58,18 @@ class ImageGenerator extends UrlGenerator
         return $this;
     }
 
-    public function getExternalRepoServiceShieldResponse($service, $org, $repo)
+    public function getExternalRepoServiceShieldResponse($service, $org, $repo, $branch = null)
     {
         $this->init();
 
-        $shieldKey = $this->getShieldKey($service, $org, $repo);
+        if (!$branch) {
+            $branch = 'master';
+        }
+
+        $shieldKey = $this->getShieldKey($service, $org, $repo, $branch);
 
         if (false === $blob = $this->getShieldBlobCached($shieldKey)) {
-            $blob = $this->getExternalShieldBlobFetched($service, $org, $repo);
+            $blob = $this->getExternalShieldBlobFetched($service, $org, $repo, $branch);
             $this->setShieldBlobCached($shieldKey, $blob);
         }
 
@@ -131,9 +135,9 @@ class ImageGenerator extends UrlGenerator
      *
      * @return bool|string
      */
-    protected function getExternalShieldBlobFetched($service, $org, $repo)
+    protected function getExternalShieldBlobFetched($service, $org, $repo, $branch)
     {
-        $url = $this->getApp()['s.gen']->getExternalRepoServiceUrl($service.'_shield', $org, $repo);
+        $url = $this->getApp()['s.gen']->getExternalRepoServiceUrl($service.'_shield', $org, $repo, $branch);
 
         if (1 === preg_match('{\%id\%}', $url)) {
             return $this->getShieldBlobUnknown($service);

@@ -120,7 +120,7 @@ class UrlGenerator
      *
      * @return null|string
      */
-    public function getExternalRepoServiceUrl($service, $org, $repo)
+    public function getExternalRepoServiceUrl($service, $org, $repo, $branch)
     {
         if (false !== strpos($service, 'packagist')) {
             $repoParts = explode('++++', strtolower(preg_replace('#(?<=\\w)(?=[A-Z])#', '++++$1', $repo)));
@@ -134,6 +134,7 @@ class UrlGenerator
         $paramsUrl = [
             '%org%' => $org,
             '%bundle-name%' => $repo,
+            '%branch%' => $branch,
         ];
         $service = [$service];
 
@@ -164,7 +165,8 @@ class UrlGenerator
     public function getRepoServiceUrl($key, $service, $repo)
     {
         $paramsUrl = [
-            '%org%' => 'src-run'
+            '%org%' => 'src-run',
+            '%branch%' => 'master',
         ];
         $serviceUrl = null;
 
