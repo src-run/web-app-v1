@@ -155,7 +155,29 @@ class UrlGenerator
             return null;
         }
 
+        if (null !== $serviceId = $this->getExternalServiceId($service, $org, $repo)) {
+            $paramsUrl = array_merge($paramsUrl, [
+                'id' => $serviceId,
+            ]);
+        }
+
         return $this->renderedFinalizedUrl($serviceUrl, $paramsUrl);
+    }
+
+    /**
+     * @param string $service
+     * @param string $org
+     * @param string $repo
+     *
+     * @return array|null
+     */
+    private function getExternalServiceId($service, $org, $repo)
+    {
+        if (false !== strpos($service[0], '_shield')) {
+            $service[0] = str_replace('_shield', '', $service[0]);
+        }
+
+        return $this->getCsv()->getValueForKeyPath('project_ids', $org, $repo, ...$service);
     }
 
     /**
@@ -260,6 +282,10 @@ class UrlGenerator
         }
 
         foreach ($instructions as $search => $replace) {
+            if (substr($search, 0, 1) !== '%') {
+                $search = '%'.$search.'%';
+            }
+
             $string = str_replace($search, $replace, $string);
         }
 

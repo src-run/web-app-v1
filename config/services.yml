@@ -141,6 +141,11 @@
       "sensiolabs"         : "sensiolabs/i/%sensiolabs-id%.svg"
       "license"            : "badge/license-%license%-008ac6.svg"
 
+"project_ids":
+
+  "liip":
+    "LiipImagineBundle":
+        "styleci" : "2515323"
 
 "projects":
 
