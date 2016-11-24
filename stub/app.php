@@ -121,31 +121,44 @@ $app->get('/shield/{org}/{repo}/{service}.svg',
     ->assert('repo', '[^/]+')
     ->assert('service', '[\w]{0,}');
 
+$goExternalRepoBranch = function ($org, $repo, $branch, $service) use ($app) {
+    if (null === ($response = $app['s.gen']->getExternalRepoServiceUrl($service, $org, $repo, $branch))) {
+        return RequestHandler::returnRedirect('/', $app);
+    }
+
+    return RequestHandler::returnRedirect($response, $app);
+};
+
+$goExternalRepo = function ($org, $repo, $service) use ($app) {
+    if (null === ($response = $app['s.gen']->getExternalRepoServiceUrl($service, $org, $repo))) {
+        return RequestHandler::returnRedirect('/', $app);
+    }
+
+    return RequestHandler::returnRedirect($response, $app);
+};
+
 // ROUTE: External repos (with branch)
-$app->get('/repo/{org}/{repo}/{branch}/{service}',
-
-    function ($org, $repo, $branch, $service) use ($app) {
-        if (null === ($response = $app['s.gen']->getExternalRepoServiceUrl($service, $org, $repo, $branch))) {
-            return RequestHandler::returnRedirect('/', $app);
-        }
-
-        return RequestHandler::returnRedirect($response, $app);
-    })
+$app->get('/repo/{org}/{repo}/{branch}/{service}', $goExternalRepoBranch)
     ->assert('org', '[^/]+')
     ->assert('repo', '[^/]+')
     ->assert('branch', '[^/]+')
     ->assert('service', '[\w]{0,}');
 
 // ROUTE: External repos
-$app->get('/repo/{org}/{repo}/{service}',
+$app->get('/repo/{org}/{repo}/{service}', $goExternalRepo)
+    ->assert('org', '[^/]+')
+    ->assert('repo', '[^/]+')
+    ->assert('service', '[\w]{0,}');
 
-    function ($org, $repo, $service) use ($app) {
-        if (null === ($response = $app['s.gen']->getExternalRepoServiceUrl($service, $org, $repo))) {
-            return RequestHandler::returnRedirect('/', $app);
-        }
+// ROUTE: External repos (with branch)
+$app->get('/service/{org}/{repo}/{branch}/{service}', $goExternalRepoBranch)
+    ->assert('org', '[^/]+')
+    ->assert('repo', '[^/]+')
+    ->assert('branch', '[^/]+')
+    ->assert('service', '[\w]{0,}');
 
-        return RequestHandler::returnRedirect($response, $app);
-    })
+// ROUTE: External repos
+$app->get('/service/{org}/{repo}/{service}', $goExternalRepo)
     ->assert('org', '[^/]+')
     ->assert('repo', '[^/]+')
     ->assert('service', '[\w]{0,}');

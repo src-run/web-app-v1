@@ -103,7 +103,7 @@
     "sami"                     : "//src.run/docs/%bundle-name%/api/master/index.html"
     "api"                      : "//src.run/docs/%bundle-name%/api/master/index.html"
     "api_shield"               : "//img.shields.io/badge/docs-API%20Reference-FF33CC.svg?style=flat-square"
-    "coveralls"                : "//coveralls.io/r/%org%/%bundle-name%?branch=%branch%"
+    "coveralls"                : "//coveralls.io/github/%org%/%bundle-name%?branch=%branch%"
     "coveralls_shield"         : "//img.shields.io/coveralls/%org%/%bundle-name%/%branch%.svg?style=flat-square"
     "scrutinizer"              : "//scrutinizer-ci.com/g/%org%/%bundle-name%"
     "scrutinizer_shield"       : "//img.shields.io/scrutinizer/g/%org%/%bundle-name%/branch%.svg?style=flat-square"
