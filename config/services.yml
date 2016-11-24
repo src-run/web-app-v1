@@ -144,6 +144,30 @@
 
 "projects":
 
+  "augustus-silencer-library":
+    "codacy_id"  : "8e78cca68ce44baca387dedf2a1b2ab7"
+    "styleci_id" : "68391716"
+
+  "augustus-instantiator-library":
+    "codacy_id"  : "b29a4ce174b8484596dcf01e070a04df"
+    "styleci_id" : "69204701"
+
+  "augustus-dumper-library":
+    "codacy_id"  : "d6ee4c2711064ca3856ec4391e13d1ae"
+    "styleci_id" : "68273462"
+
+  "augustus-file-lock-library":
+    "codacy_id"  : "7bf3d0721be64175822e846e3764c08d"
+    "styleci_id" : "68176628"
+
+  "augustus-file-object-library":
+    "codacy_id"  : "932d2b59aa274ea89a02076c59dae75f"
+    "styleci_id" : "68270148"
+
+  "augustus-log-library":
+    "codacy_id"  : "10e2534829264a5681dded0bd12603d5"
+    "styleci_id" : "67976822"
+
   "augustus-deprecation-library":
     "codacy_id"  : "a89c3b43feef4c18a5518489b5d37655"
     "styleci_id" : "55302276"
