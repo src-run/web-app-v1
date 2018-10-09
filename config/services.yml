@@ -26,10 +26,21 @@
     "osi"                : "https://en.wikipedia.org/wiki/Open_Source_Initiative"
     "gpl"                : "https://en.wikipedia.org/wiki/GNU_General_Public_License"
     "mit"                : "https://en.wikipedia.org/wiki/MIT_License"
+    "license"            : "https://src-run.mit-license.org"
 
   "file":
     "get-build-knowledge.sh"            : "https://raw.githubusercontent.com/src-run/project-build-knowledge/aboriginal-pasta/build/env/get_build-knowledge.sh"
     "fetch-all-repos-gen-api-docs.bash" : "https://raw.githubusercontent.com/src-run/build-knowledge-shared/aboriginal-pasta/build/doc/fetch-all-repos-and-gen.sh"
+
+"root_redirects":
+
+  "links":
+    "common-project-license" : "https://src-run.mit-license.org"
+
+  "alias":
+    "mit"                    : "common-project-license"
+    "license"                : "common-project-license"
+    "project-license"        : "common-project-license"
 
 "user_aliases":
 
@@ -98,6 +109,8 @@
     "packagist_dd_shield"      : "//img.shields.io/packagist/dd/%org%/%bundle-name%.svg?style=flat-square"
     "packagist_dt_shield"      : "//img.shields.io/packagist/dt/%org%/%bundle-name%.svg?style=flat-square"
     "packagist_pre_shield"     : "//img.shields.io/packagist/vpre/%org%/%bundle-name%.svg?style=flat-square"
+    "packagist_license"        : "//img.shields.io/packagist/l/%org%/%bundle-name%.svg?style=flat-square"
+    "packagist-license"        : "//img.shields.io/packagist/l/%org%/%bundle-name%.svg?style=flat-square"
     "rtd"                      : "//%bundle-name%.src.run"
     "docs"                     : "//%bundle-name%.src.run"
     "sami"                     : "//src.run/docs/%bundle-name%/api/master/index.html"
@@ -201,6 +214,22 @@
     "codacy_id"  : "8f18dad5c54b46228ccbc0c5cadbf9a2"
     "styleci_id" : "55018312"
 
+  "cocoa-transformer-library":
+    "codacy_id"  : "49d6c92eef614d5ebd4830813f5f5dad"
+    "styleci_id" : "91142610"
+
+  "cocoa-markdown-library":
+    "codacy_id"  : "e0830729bde7455db4916bfb2b7de19a"
+    "styleci_id" : "91206441"
+
+  "cocoa-word-stem-library":
+    "codacy_id"  : "b8a8f919f0cb48d996033efbd78afedf"
+    "styleci_id" : "96849376"
+
+  "rf-app":
+    "codacy_id"  : "4822692989484db7b3a4212401aa3239"
+    "styleci_id" : "92237626"
+
   "vermicious-console-io-library":
     "codacy_id" : "827d8cfe72bf42a99f72d0db1e3c8a8d"
 
@@ -212,21 +241,19 @@
 
   "arthur-doctrine-exception-library":
     "codacy_id" : "048c20254782400daf17a22f167dbd7f"
+    "styleci_id" : "53185516"
 
   "arthur-doctrine-identity-library":
     "codacy_id" : "0d9fed93a0034f1ea981cf7fcd659fe2"
+    "styleci_id" : "57602430"
 
   "arthur-doctrine-entity-traits-library":
     "codacy_id" : "d2c1fd38afca4ea1809b74e2f2754d8b"
-
-  "arthur-doctrine-library":
-    "codacy_id" : "e234d28f7d3643c4aaa377ae92505f7a"
+    "styleci_id": "54006547"
 
   "arthur-doctrine-uuid-library":
     "codacy_id" : "2891b03e2e814ae0b679d24c94a9581a"
-
-  "arthur-doctrine-fixtures-bundle":
-    "codacy_id" : "66683ef641b840beafba75f699373da8"
+    "styleci_id": "45018083"
 
   "wonka-library":
     "codacy_id"  : "976d1226a233466183b2e76c09dc9582"
@@ -236,23 +263,23 @@
     "codacy_id"  : "f4e227b4b0614b809da4438bb5ee4ab0"
     "styleci_id" : "42904556"
 
-  "teavee-object-cache-bundle":
-    "codacy_id" : "dd26e12573f74e66826d7a9691c21b2c"
+#  "teavee-object-cache-bundle":
+#    "codacy_id" : "dd26e12573f74e66826d7a9691c21b2c"
 
-  "teavee-google-web-fonts-bundle":
-    "codacy_id" : "2cf6a1710d824bcaabf060466d284342"
+#  "teavee-google-web-fonts-bundle":
+#    "codacy_id" : "2cf6a1710d824bcaabf060466d284342"
 
-  "teavee-html-generator-bundle":
-    "codacy_id" : "f16ee593decf4a29b7d261153c4449a4"
+#  "teavee-html-generator-bundle":
+#    "codacy_id" : "f16ee593decf4a29b7d261153c4449a4"
 
-  "teavee-scribble-down-bundle":
-    "codacy_id" : "fafb2c7b32ec4ad19e765df566a1951a"
+#  "teavee-scribble-down-bundle":
+#    "codacy_id" : "fafb2c7b32ec4ad19e765df566a1951a"
 
-  "teavee-image-magic-bundle":
-    "codacy_id" : "aa9d93539cec4dc4806c135c15e79ade"
+#  "teavee-image-magic-bundle":
+#    "codacy_id" : "aa9d93539cec4dc4806c135c15e79ade"
 
-  "mantle-bundle":
-    "codacy_id" : "4724225f607149f49944d7822416b939"
+#  "mantle-bundle":
+#    "codacy_id" : "4724225f607149f49944d7822416b939"
 
-  "file-uploader-bundle":
-    "codacy_id" : "cc224e4849ca4b889ff33cfcfa9a6164"
+#  "file-uploader-bundle":
+#    "codacy_id" : "cc224e4849ca4b889ff33cfcfa9a6164"

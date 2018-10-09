@@ -76,7 +76,14 @@ $app->get('/', function () use ($app) {
     return RequestHandler::returnRedirect('https://github.com/src-run', $app);
 });
 
-// ROUTE: Short link redirects
+// ROUTE: Short link redirect for root-level links (no prefix before link name)
+$shortLinksRoot(
+    $app['s.csv']->getValueForKeyPath('root_redirects', 'links'),
+    $app['s.csv']->getValueForKeyPath('root_redirects', 'alias')
+);
+
+
+// ROUTE: Short link redirects for links, aliases, and files
 $shortLinks(
     ['go', 'sl', 'redirect'],
     $app['s.csv']->getValueForKeyPath('shortlinks', 'go'),
